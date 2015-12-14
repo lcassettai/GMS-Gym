@@ -92,7 +92,7 @@ public class ControladorPagos {
             }
 
         } catch (Exception e) {
-            System.out.println("No se pudieron registrar las inscripciones motivo : " + e.getMessage());
+            System.out.println("No se pudieron registrar las inscripciones por el siguiente motivo : " + e.getMessage());
         } finally {
             desconectar();
         }
