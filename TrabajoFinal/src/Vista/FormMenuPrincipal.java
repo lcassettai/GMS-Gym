@@ -9,8 +9,10 @@ import Modelo.Empleado;
 import Modelo.Inscripcion;
 import Modelo.InscripcionesTableModel;
 import Modelo.Usuario;
+import com.itextpdf.text.pdf.parser.Vector;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -192,6 +194,9 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         lstBusquedaRapida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstBusquedaRapidaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lstBusquedaRapidaMousePressed(evt);
             }
         });
         jScrollPane2.setViewportView(lstBusquedaRapida);
@@ -594,6 +599,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         habilitarAdministrador(false);
         borrar();
         limpiarTabla();
+        ArrayList vacio = new ArrayList();        
+        lstBusquedaRapida.setListData(vacio.toArray());
     }//GEN-LAST:event_miCerrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -623,7 +630,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         if (!txtBuscar.getText().isEmpty()) {
-
             ControladorAlumno ca = new ControladorAlumno();
             listaAlumnos = ca.buscarAlumno(txtBuscar.getText());
             lstBusquedaRapida.setListData(listaAlumnos.toArray());
@@ -634,10 +640,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void lstBusquedaRapidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstBusquedaRapidaMouseClicked
-        int i = lstBusquedaRapida.getSelectedIndex();
-        if (i >= 0) {
-            llenarCampos(i);
-        }
+//        int i = lstBusquedaRapida.getSelectedIndex();
+//       
+//        if (i >= 0) {
+//            llenarCampos(i);
+//        }
     }//GEN-LAST:event_lstBusquedaRapidaMouseClicked
 
     private void btnNuevoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPagoActionPerformed
@@ -654,6 +661,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoPagoActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+   
         if (lstBusquedaRapida.getSelectedIndex() > -1) {
             Alumno a = listaAlumnos.get(lstBusquedaRapida.getSelectedIndex());
             if (a.verificarDeudas() > 0) {
@@ -663,10 +671,10 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 fpd.setearDeudorEmpleado(d.getIdDeudor(), login.getIdUsuario(), a.verificarDeudas(), a.getApellido());
                 fpd.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas");
+                JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas","Cancelar deuda",JOptionPane.INFORMATION_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno","Cancelar deuda",JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
@@ -701,6 +709,14 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         FormReportePagos frp = new FormReportePagos();
         frp.setVisible(true);
     }//GEN-LAST:event_btnNuevaReservaActionPerformed
+
+    private void lstBusquedaRapidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstBusquedaRapidaMousePressed
+        int i = lstBusquedaRapida.getSelectedIndex();
+       
+        if (i >= 0) {
+            llenarCampos(i);
+        }
+    }//GEN-LAST:event_lstBusquedaRapidaMousePressed
 
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);
