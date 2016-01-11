@@ -10,6 +10,7 @@ import Modelo.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import static javax.management.Query.gt;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,6 +29,8 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         grupoSexo.add(rbFemenino);
         setResizable(false);
         nuevo = 0;
+        foco();
+        txtBuscarAlumno.requestFocus();
     }
 
     @SuppressWarnings("unchecked")
@@ -111,6 +114,11 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         txtDireccion.setEnabled(false);
 
         txtTelefono.setEnabled(false);
+        txtTelefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoKeyTyped(evt);
+            }
+        });
 
         txtTelefonoEmer.setEnabled(false);
 
@@ -244,11 +252,15 @@ public class formNuevoAlumno extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblAlumnosMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblAlumnosMousePressed(evt);
+            }
         });
         jScrollPane1.setViewportView(tblAlumnos);
 
         jLabel1.setText("Buscar Alumno :");
 
+        txtBuscarAlumno.setToolTipText("Puede realizar la busqueda por Nombre, Apellido o DNI");
         txtBuscarAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarAlumnoActionPerformed(evt);
@@ -289,7 +301,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
 
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/nuevoChico.png"))); // NOI18N
         btnNuevo.setText("Nuevo");
-        btnNuevo.setToolTipText("Agregar un nuevo empleado");
+        btnNuevo.setToolTipText("Agregar un nuevo alumno");
         btnNuevo.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         btnNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -300,7 +312,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
 
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Editar.png"))); // NOI18N
         btnEditar.setText("Editar");
-        btnEditar.setToolTipText("Editar empleado");
+        btnEditar.setToolTipText("Editar alumno");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -308,8 +320,8 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/EliminarUsuario.png"))); // NOI18N
-        btnEliminar.setText("Eliminar");
-        btnEliminar.setToolTipText("Eliminar un empleado");
+        btnEliminar.setText("Desactivar");
+        btnEliminar.setToolTipText("El alumno no podra ingresar hasta que no vuelva a estar activo");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -348,19 +360,19 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addGap(32, 32, 32))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,14 +393,14 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator1))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -402,7 +414,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -413,25 +425,42 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         nuevo = 1;
         habilitar(true);
         tblAlumnos.clearSelection();
+        tblAlumnos.enable(false);
+        txtBuscarAlumno.enable(false);
+        txtNombre.requestFocus();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblAlumnos.getSelectedRow() >= 0) {
             habilitar(true);
             nuevo = 2;
+            tblAlumnos.enable(false);
+            txtBuscarAlumno.enable(false);
+            txtNombre.requestFocus(); 
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno para poder editarlo");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno para poder editarlo", "Ayuda", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
+        int codigoAlumno = tblAlumnos.getSelectedRow();
+        if (codigoAlumno >= 0) {
+            ControladorAlumno ca = new ControladorAlumno();
+            ca.desactivarAlumno(false, Integer.parseInt(lblCodigo.getText()));
+            JOptionPane.showMessageDialog(this, "Se desactivo la cuenta del alumno correctamente!", "Eliminar Alumno", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar la cuenta del alumno que desea desactivar", "Eliminar Alumno", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         habilitar(false);
         tblAlumnos.clearSelection();
         borrar();
+        tblAlumnos.enable(true);
+        txtBuscarAlumno.enable(true);
+        txtBuscarAlumno.setText("");
+        actualizarLista();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -464,18 +493,20 @@ public class formNuevoAlumno extends javax.swing.JFrame {
             ControladorAlumno ca = new ControladorAlumno();
             if (nuevo == 1) {
                 ca.cargarAlumno(a);
-                JOptionPane.showMessageDialog(this, "Se cargo el alumno correctamente");
+                JOptionPane.showMessageDialog(this, "Se cargo el alumno correctamente", "Informe", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (nuevo == 2) {
                     a.setCodCliente(Integer.parseInt(lblCodigo.getText()));
                     ca.actualizarAlumno(a);
-                    JOptionPane.showMessageDialog(this, "Se actualizo el alumno correctamente");
+                    JOptionPane.showMessageDialog(this, "Se actualizo el alumno correctamente", "Informe", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
 
             borrar();
             habilitar(false);
             nuevo = 0;
+            tblAlumnos.enable(true);
+            txtBuscarAlumno.enable(true);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -484,13 +515,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void tblAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlumnosMouseClicked
-        try {
-            int seleccionado = tblAlumnos.getSelectedRow();
-            Integer dato = (Integer) tblAlumnos.getValueAt(seleccionado, 0);
-            cargarCampos(dato);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada, " + e.getMessage());
-        }
+
     }//GEN-LAST:event_tblAlumnosMouseClicked
 
     private void txtBuscarAlumnoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarAlumnoKeyReleased
@@ -509,6 +534,20 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarAlumnoActionPerformed
 
+    private void txtTelefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoKeyTyped
+
+    }//GEN-LAST:event_txtTelefonoKeyTyped
+
+    private void tblAlumnosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlumnosMousePressed
+        try {
+            int seleccionado = tblAlumnos.getSelectedRow();
+            Integer dato = (Integer) tblAlumnos.getValueAt(seleccionado, 0);
+            cargarCampos(dato);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_tblAlumnosMousePressed
+
     public Boolean validarCampos() {
 
         try {
@@ -524,12 +563,32 @@ public class formNuevoAlumno extends javax.swing.JFrame {
                 throw new Exception("Ingrese la fecha de nacimiento");
             }
 
+            if (txtDni.getText().isEmpty()) {
+                throw new Exception("Ingrese el DNI del alumno");
+            }
+
+            if (!isNumeric(txtDni.getText())) {
+                throw new Exception("El DNI debe ser un campo numerico");
+            }
+
             if (rbMasculino.isSelected() == false && rbFemenino.isSelected() == false) {
                 throw new Exception("Ingrese el sexo del alumno");
             }
 
+            if (!txtTelefono.getText().isEmpty()) {
+                if (!isNumeric(txtTelefono.getText())) {
+                    throw new Exception("El telefono debe ser un campo numerico");
+                }
+            }
+
+            if (!txtTelefonoEmer.getText().isEmpty()) {
+                if (!isNumeric(txtTelefonoEmer.getText())) {
+                    throw new Exception("El telefono de emergencia debe ser un campo numerico");
+                }
+            }
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
@@ -633,6 +692,36 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         jdcFecha.setDate(null);
         txtComentario.setText("");
         lblCodigo.setText("-");
+    }
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+    
+    private void foco(){
+        txtBuscarAlumno.setNextFocusableComponent(btnNuevo);
+        btnNuevo.setNextFocusableComponent(btnEditar);
+        btnEditar.setNextFocusableComponent(btnEliminar);       
+        btnEliminar.setNextFocusableComponent(btnGuardar);
+        btnGuardar.setNextFocusableComponent(btnEliminar);
+        btnEliminar.setNextFocusableComponent(btnSalir);
+        txtNombre.setNextFocusableComponent(txtApellido);
+        txtApellido.setNextFocusableComponent(jdcFecha);
+        jdcFecha.setNextFocusableComponent(txtDni);
+        txtDni.setNextFocusableComponent(rbMasculino);
+        rbMasculino.setNextFocusableComponent(rbFemenino);
+        rbFemenino.setNextFocusableComponent(txtDireccion);
+        txtDireccion.setNextFocusableComponent(txtTelefono);
+        txtTelefono.setNextFocusableComponent(txtTelefonoEmer);
+        txtTelefonoEmer.setNextFocusableComponent(cboActivo);
+        cboActivo.setNextFocusableComponent(txtComentario);         
+        txtComentario.setNextFocusableComponent(btnGuardar);
+        btnGuardar.setNextFocusableComponent(btnCancelar);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,7 +22,6 @@ public class ControladorAlumno {
         } catch (Exception e) {
             System.out.println("No se pudo conectar a la BD motivo : " + e.getMessage());
         }
-
     }
 
     public void desconectar() {
@@ -277,6 +276,20 @@ public class ControladorAlumno {
             desconectar();
         }
         return a;
+    }
+    public void desactivarAlumno(Boolean estado,int codAlumno){
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "update alumnos set activo = '"+estado+"' where codAlumno = "+codAlumno+"";
+            st.executeUpdate(sql);
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo cambiar el estado del alumno, motivo : " + e.getMessage());
+        }
+        finally{
+            desconectar();
+        }
     }
     
     

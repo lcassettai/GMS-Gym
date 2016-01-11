@@ -23,7 +23,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
     Usuario login;
     ArrayList<Alumno> listaAlumnos = new ArrayList<>();
-
+   
     public FormMenuPrincipal() {
         initComponents();
         login = new Usuario();
@@ -599,22 +599,23 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         habilitarAdministrador(false);
         borrar();
         limpiarTabla();
-        ArrayList vacio = new ArrayList();        
+        ArrayList vacio = new ArrayList();           
         lstBusquedaRapida.setListData(vacio.toArray());
     }//GEN-LAST:event_miCerrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if (login.getTipoEmpleado() != 0) {
+          if (login.getTipoEmpleado() != 0) {
             if (login.getTipoEmpleado() == 3) {
                 habilitarAdministrador(true);
-                lblIdSesion.setText(login.getUsuario() + "(Administrador)");
+                lblIdSesion.setText(login.getUsuario() + "(Administrador)");               
             } else {
                 habilitarEmpleado(true);
-                lblIdSesion.setText(login.getUsuario());
+                lblIdSesion.setText(login.getUsuario());             
             }
             borrar();
+            limpiarTabla();
             actualizarAlumnos();
-        }
+        }      
 
     }//GEN-LAST:event_formWindowActivated
 
@@ -672,6 +673,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 fpd.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas","Cancelar deuda",JOptionPane.INFORMATION_MESSAGE);
+                
             }
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno","Cancelar deuda",JOptionPane.WARNING_MESSAGE);
@@ -711,8 +713,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevaReservaActionPerformed
 
     private void lstBusquedaRapidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstBusquedaRapidaMousePressed
-        int i = lstBusquedaRapida.getSelectedIndex();
-       
+        int i = lstBusquedaRapida.getSelectedIndex();       
         if (i >= 0) {
             llenarCampos(i);
         }
@@ -739,11 +740,13 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         lstBusquedaRapida.clearSelection();
         lblEstado.setForeground(Color.black);
         lblDeuda.setForeground(Color.black);
-
+        txtBuscar.setText("");
     }
 
     private void limpiarTabla() {
-
+        ArrayList<Inscripcion> listaVacia = new ArrayList<>();
+        InscripcionesTableModel itm = new InscripcionesTableModel(listaVacia);
+        tblInscripcion.setModel(itm);
     }
 
     //Metodo para habilitar las opciones a las cuales pueden acceder los empleados
