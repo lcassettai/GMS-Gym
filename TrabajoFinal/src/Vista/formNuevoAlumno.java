@@ -10,7 +10,6 @@ import Modelo.*;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import static javax.management.Query.gt;
 import javax.swing.JOptionPane;
 
 /**
@@ -89,15 +88,15 @@ public class formNuevoAlumno extends javax.swing.JFrame {
 
         jLabel10.setText("Codigo :");
 
-        jLabel11.setText("Nombre :");
+        jLabel11.setText("Nombre* :");
 
-        jLabel12.setText("Apellido :");
+        jLabel12.setText("Apellido* :");
 
-        jLabel13.setText("Fecha de Nacimiento :");
+        jLabel13.setText("Fecha de Nacimiento* :");
 
-        jLabel14.setText("DNI :");
+        jLabel14.setText("DNI* :");
 
-        jLabel15.setText("Sexo :");
+        jLabel15.setText("Sexo* :");
 
         jLabel16.setText("Direccion :");
 
@@ -446,7 +445,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         int codigoAlumno = tblAlumnos.getSelectedRow();
         if (codigoAlumno >= 0) {
             ControladorAlumno ca = new ControladorAlumno();
-            ca.desactivarAlumno(false, Integer.parseInt(lblCodigo.getText()));
+            ca.desactivarAlumno(Integer.parseInt(lblCodigo.getText()));
             JOptionPane.showMessageDialog(this, "Se desactivo la cuenta del alumno correctamente!", "Eliminar Alumno", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar la cuenta del alumno que desea desactivar", "Eliminar Alumno", JOptionPane.WARNING_MESSAGE);
@@ -540,11 +539,14 @@ public class formNuevoAlumno extends javax.swing.JFrame {
 
     private void tblAlumnosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlumnosMousePressed
         try {
+            if (!tblAlumnos.isEnabled()) {
+                throw new Exception("");
+            }
             int seleccionado = tblAlumnos.getSelectedRow();
             Integer dato = (Integer) tblAlumnos.getValueAt(seleccionado, 0);
             cargarCampos(dato);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada, ya que se estan editando campos", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_tblAlumnosMousePressed
 

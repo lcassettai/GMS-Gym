@@ -3,22 +3,14 @@ package Vista;
 import Controlador.ControladorAlumno;
 import Controlador.ControladorPagos;
 import Modelo.Alumno;
-import Modelo.AlumnosTableModel;
 import Modelo.Deudor;
-import Modelo.Empleado;
 import Modelo.Inscripcion;
 import Modelo.InscripcionesTableModel;
 import Modelo.Usuario;
-import com.itextpdf.text.pdf.parser.Vector;
 import java.awt.Color;
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Home
- */
 public class FormMenuPrincipal extends javax.swing.JFrame {
 
     Usuario login;

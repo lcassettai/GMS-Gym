@@ -6,31 +6,20 @@
 package Vista;
 
 import Controlador.ControladorEmpleados;
-import Controlador.ControladorSesion;
 import Modelo.Empleado;
 import Modelo.EmpleadosTableModel;
-import Modelo.Usuario;
-
-import java.util.Date;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Home
- */
 public class formNuevoEmpleado extends javax.swing.JFrame {
 
     ArrayList<Empleado> lista;
-    
+
     /*nuevo se utiliza como una bandera en el caso que sea 1 se carga uno nuevo
-    en el caso de que sea 2, se edita un empleado existente, en el caso que seas 
-    0 se pedira que se seleccione alguna de las opciones */
-    
+     en el caso de que sea 2, se edita un empleado existente, en el caso que seas 
+     0 se pedira que se seleccione alguna de las opciones */
     int nuevo;
 
     public formNuevoEmpleado() {
@@ -107,6 +96,7 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
         jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestionar Empleados");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -134,7 +124,7 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
         });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/EliminarUsuario.png"))); // NOI18N
-        btnEliminar.setText("Eliminar");
+        btnEliminar.setText("Desactivar");
         btnEliminar.setToolTipText("Eliminar un empleado");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,14 +169,14 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -424,6 +414,9 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEmpleadosMouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tblEmpleadosMousePressed(evt);
+            }
         });
         jScrollPane1.setViewportView(tblEmpleados);
 
@@ -500,8 +493,14 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasw1ActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-
+        int codigoAlumno = tblEmpleados.getSelectedRow();
+        if (codigoAlumno >= 0) {
+            ControladorEmpleados ce = new ControladorEmpleados();
+            ce.desactivarEmpleado(Integer.parseInt(lblCodigo.getText()));
+            JOptionPane.showMessageDialog(this, "Se desactivo la cuenta del empleado correctamente!", "Desactivar cuenta", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar la cuenta del empleado que desea desactivar", "Desactivar cuenta", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -514,23 +513,17 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
-        try {
-            int seleccionado = tblEmpleados.getSelectedRow();
-            Integer dato = (Integer) tblEmpleados.getValueAt(seleccionado, 0);
-            cargarCampos(dato);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada");
-        }
+       
     }//GEN-LAST:event_tblEmpleadosMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Empleado e = new Empleado();
-        
+
         //Valido que almenos los campos necesarios esten cargados
         if (validarCampos()) {
             //Recupero todos los datos cargados y los seteo en el objeto
             e.setNombre(txtNombre.getText());
-            e.setApellido(txtApellido.getText());           
+            e.setApellido(txtApellido.getText());
             e.setComentario(txtComentario.getText());
             e.setActivo(cboActivo.isSelected());
             if (rbFemenino.isSelected()) {
@@ -554,16 +547,15 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
             e.setFechaNac(Timestamp.valueOf(day));
 
             ControladorEmpleados ce = new ControladorEmpleados();
-            
+
             if (nuevo == 1) {
                 ce.cargarNuevoEmpleado(e);
-                JOptionPane.showMessageDialog(this, "Cargo el empleado correctamente!");
+                JOptionPane.showMessageDialog(this, "Cargo el empleado correctamente!","Nuevo Empleado",JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (nuevo == 2) {
                     e.setCodEmpleado(Integer.parseInt(lblCodigo.getText()));
-                    ce.actualizarEmpleado(e);                    
-                    JOptionPane.showMessageDialog(this, "Se actualizo el empleado correctamente!");
-
+                    ce.actualizarEmpleado(e);
+                    JOptionPane.showMessageDialog(this, "Se actualizo el empleado correctamente!","Editar Empleado",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             habilitar(false);
@@ -576,8 +568,7 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
 
     private boolean validarCampos() {
         Boolean validar = true;
-       
-        
+
         try {
             if (txtNombre.getText().isEmpty()) {
                 throw new Exception("LLene el campo nombre.");
@@ -587,8 +578,16 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
                 throw new Exception("LLene el campo apellido.");
             }
 
-            if(jdcFecha.getDate()==null){
+            if (jdcFecha.getDate() == null) {
                 throw new Exception("Ingrese la fecha de nacimiento");
+            }
+
+            if(txtDni.getText().isEmpty()){
+                throw new Exception("Ingrese el DNI del empleado");                
+            }
+            
+            if(!isNumeric(txtDni.getText())){
+                throw new Exception("El DNI debe ser de tipo numerico");
             }
             
             if (rbFemenino.isSelected() == false && rbMasculino.isSelected() == false) {
@@ -602,8 +601,20 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
             if (!txtPasw1.getText().equals(txtPasw2.getText())) {
                 throw new Exception("Las contraseñas no coinciden.");
             }
+
+            if (!txtTelefono.getText().isEmpty()) {
+                if (!isNumeric(txtTelefono.getText())) {
+                    throw new Exception("El telefono debe ser un campo numerico");
+                }
+            }
+
+            if (!txtTelefonoEmer.getText().isEmpty()) {
+                if (!isNumeric(txtTelefonoEmer.getText())) {
+                    throw new Exception("El telefono de emergencia debe ser un campo numerico");
+                }
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return validar;
@@ -615,9 +626,22 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
             habilitar(true);
             nuevo = 2;
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un empleado para poder editarlo");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un empleado para poder editarlo","Editar Empleado",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void tblEmpleadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMousePressed
+        try {
+            if(!tblEmpleados.isEnabled()){
+                throw new Exception("");
+            }
+            int seleccionado = tblEmpleados.getSelectedRow();
+            Integer dato = (Integer) tblEmpleados.getValueAt(seleccionado, 0);
+            cargarCampos(dato);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada, ya que se estan editando campos","Error",JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_tblEmpleadosMousePressed
 
     public void cargarCampos(int i) {
         borrar();
@@ -723,6 +747,15 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
         txtComentario.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnCancelar);
 
+    }
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     /**

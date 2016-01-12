@@ -201,27 +201,27 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre :"/>
+            <Property name="text" type="java.lang.String" value="Nombre* :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Apellido :"/>
+            <Property name="text" type="java.lang.String" value="Apellido* :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel13">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Fecha de Nacimiento :"/>
+            <Property name="text" type="java.lang.String" value="Fecha de Nacimiento* :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DNI :"/>
+            <Property name="text" type="java.lang.String" value="DNI* :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel15">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sexo :"/>
+            <Property name="text" type="java.lang.String" value="Sexo* :"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel16">

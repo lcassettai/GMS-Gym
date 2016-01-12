@@ -277,11 +277,11 @@ public class ControladorAlumno {
         }
         return a;
     }
-    public void desactivarAlumno(Boolean estado,int codAlumno){
+    public void desactivarAlumno(int codAlumno){
         try {
             conectar();
             Statement st = conexion.createStatement();
-            String sql = "update alumnos set activo = '"+estado+"' where codAlumno = "+codAlumno+"";
+            String sql = "update alumnos set activo = 'false' where codAlumno = "+codAlumno+"";
             st.executeUpdate(sql);
             st.close();
         } catch (Exception e) {

@@ -6,11 +6,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-
 
 public class ControladorEmpleados {
     Connection conexion;
@@ -195,9 +192,21 @@ public class ControladorEmpleados {
             desconectar();
         }
         return em;
+    }  
+    
+    public void desactivarEmpleado(int codEmpleado){
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "UPDATE empleados SET activo = 'false' where codEmpleado = " + codEmpleado;
+            st.executeUpdate(sql);
+            st.close();            
+        } catch (Exception e) {
+            System.out.println("No se pudo desactivar el empleado motivo : " + e.getMessage());
+        }
+        finally{
+            desconectar();
+        }
     }
-    
-    
-    
     
 }
