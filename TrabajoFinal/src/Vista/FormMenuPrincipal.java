@@ -77,7 +77,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformAsistencia = new javax.swing.JMenuItem();
         miInformDeudor = new javax.swing.JMenuItem();
         miAyuda = new javax.swing.JMenu();
-        jmiMenuAsistencias = new javax.swing.JMenuItem();
         miSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -468,16 +467,20 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        miAyuda.setText("Abrir");
-
-        jmiMenuAsistencias.setText("Control de Asistencias");
-        jmiMenuAsistencias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiMenuAsistenciasActionPerformed(evt);
+        miAyuda.setText("Control de Asistencias");
+        miAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                miAyudaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                miAyudaMousePressed(evt);
             }
         });
-        miAyuda.add(jmiMenuAsistencias);
-
+        miAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAyudaActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(miAyuda);
 
         miSalir.setText("Salir");
@@ -678,12 +681,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         fip.setVisible(true);
     }//GEN-LAST:event_miInformPagoActionPerformed
 
-    private void jmiMenuAsistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMenuAsistenciasActionPerformed
-        FormControlAsistencia fca = new FormControlAsistencia();
-        fca.setVisible(true);
-
-    }//GEN-LAST:event_jmiMenuAsistenciasActionPerformed
-
     private void btnVerAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAsistenciaActionPerformed
         FormReportesAsistencias fra = new FormReportesAsistencias();
         fra.setVisible(true);
@@ -710,6 +707,19 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             llenarCampos(i);
         }
     }//GEN-LAST:event_lstBusquedaRapidaMousePressed
+
+    private void miAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAyudaActionPerformed
+        
+    }//GEN-LAST:event_miAyudaActionPerformed
+
+    private void miAyudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miAyudaMouseClicked
+    
+    }//GEN-LAST:event_miAyudaMouseClicked
+
+    private void miAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miAyudaMousePressed
+          FormControlAsistencia fca = new FormControlAsistencia();
+        fca.setVisible(true);
+    }//GEN-LAST:event_miAyudaMousePressed
 
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);
@@ -885,7 +895,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JMenuItem jmiMenuAsistencias;
     private javax.swing.JLabel lblDeuda;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblIdSesion;
