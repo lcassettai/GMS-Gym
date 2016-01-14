@@ -50,6 +50,7 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestionar Promociones");
 
         jLabel3.setText("Monto de descuento :");
 
