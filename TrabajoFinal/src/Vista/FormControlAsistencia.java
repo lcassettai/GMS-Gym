@@ -127,15 +127,15 @@ public class FormControlAsistencia extends javax.swing.JFrame {
 
             if (buscarAlumno(dni)) {
                 controladorAsist.asistenciaAlumno(alumno.getCodCliente());
-                JOptionPane.showMessageDialog(this, "Bienvenido Alumno");
+                JOptionPane.showMessageDialog(this, "Bienvenido Alumno","Bienvenido",JOptionPane.WARNING_MESSAGE);
                 alumno = null;
             } else {
                 if (buscarEmpleado(dni)) {
                     controladorAsist.asistenciaEmpleado(empleado.getCodEmpleado());
-                    JOptionPane.showMessageDialog(this, "Bienvenido Empleado");
+                    JOptionPane.showMessageDialog(this, "Bienvenido Empleado","Bienvenido",JOptionPane.INFORMATION_MESSAGE);
                     empleado = null;
                 } else {
-                    JOptionPane.showMessageDialog(this, "Usted no se encuentra habilitado para ingresar");
+                    JOptionPane.showMessageDialog(this, "Usted no se encuentra habilitado para ingresar","Aviso",JOptionPane.WARNING_MESSAGE);
                 }
             }
             txtDNI.setText("");
