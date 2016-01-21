@@ -3,6 +3,7 @@ package Modelo;
 
 public class ReporteTotalPagos {
     private int nroCuota;
+    private String tipoPago;
     private String alumno;
     private String actividad;
     private float monto;
@@ -14,6 +15,15 @@ public class ReporteTotalPagos {
 
     public ReporteTotalPagos() {
     }
+
+    public String getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+       
 
     public int getNroCuota() {
         return nroCuota;

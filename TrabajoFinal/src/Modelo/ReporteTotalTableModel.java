@@ -26,7 +26,7 @@ public class ReporteTotalTableModel extends AbstractTableModel {
         ReporteTotalPagos rtp = listaPagos.get(i);
         switch (i1) {
             case 0:
-                return rtp.getNroCuota();
+                return rtp.getTipoPago();
             case 1:
                 return rtp.getAlumno();
             case 2:
@@ -51,7 +51,7 @@ public class ReporteTotalTableModel extends AbstractTableModel {
     public String getColumnName(int i) {
         switch (i) {
             case 0:
-                return "nroCuota";
+                return "Tipo de Pago";
             case 1:
                 return "Alumno";
             case 2:

@@ -264,7 +264,7 @@ public class ControladorPagos {
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 ReporteTotalPagos rtp = new ReporteTotalPagos();
-                rtp.setNroCuota(rs.getInt(1));
+                rtp.setTipoPago(rs.getString(1));
                 rtp.setAlumno(rs.getString(2));
                 rtp.setActividad(rs.getString(3));
                 rtp.setMonto(rs.getFloat(4));
