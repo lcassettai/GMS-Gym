@@ -20,9 +20,11 @@ public class formNuevoAlumno extends javax.swing.JFrame {
 
     int nuevo;
     ArrayList<Alumno> lista;
+    boolean selecionadoNuevoAlumno;
 
     public formNuevoAlumno() {
         initComponents();
+        selecionadoNuevoAlumno = false;
         lista = new ArrayList<>();
         grupoSexo.add(rbMasculino);
         grupoSexo.add(rbFemenino);
@@ -30,6 +32,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         nuevo = 0;
         foco();
         txtBuscarAlumno.requestFocus();
+        actualizarLista();
     }
 
     @SuppressWarnings("unchecked")
@@ -420,6 +423,10 @@ public class formNuevoAlumno extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        activarNuevo();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    public void activarNuevo() {
         borrar();
         nuevo = 1;
         habilitar(true);
@@ -427,7 +434,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         tblAlumnos.enable(false);
         txtBuscarAlumno.enable(false);
         txtNombre.requestFocus();
-    }//GEN-LAST:event_btnNuevoActionPerformed
+    }
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (tblAlumnos.getSelectedRow() >= 0) {
@@ -435,9 +442,10 @@ public class formNuevoAlumno extends javax.swing.JFrame {
             nuevo = 2;
             tblAlumnos.enable(false);
             txtBuscarAlumno.enable(false);
-            txtNombre.requestFocus(); 
+            txtNombre.requestFocus();
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno para poder editarlo", "Ayuda", JOptionPane.WARNING_MESSAGE);
+
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -506,11 +514,12 @@ public class formNuevoAlumno extends javax.swing.JFrame {
             nuevo = 0;
             tblAlumnos.enable(true);
             txtBuscarAlumno.enable(true);
+            actualizarLista();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        actualizarLista();
+
     }//GEN-LAST:event_formWindowActivated
 
     private void tblAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlumnosMouseClicked
@@ -704,11 +713,11 @@ public class formNuevoAlumno extends javax.swing.JFrame {
             return false;
         }
     }
-    
-    private void foco(){
+
+    private void foco() {
         txtBuscarAlumno.setNextFocusableComponent(btnNuevo);
         btnNuevo.setNextFocusableComponent(btnEditar);
-        btnEditar.setNextFocusableComponent(btnEliminar);       
+        btnEditar.setNextFocusableComponent(btnEliminar);
         btnEliminar.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnEliminar);
         btnEliminar.setNextFocusableComponent(btnSalir);
@@ -721,7 +730,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         txtDireccion.setNextFocusableComponent(txtTelefono);
         txtTelefono.setNextFocusableComponent(txtTelefonoEmer);
         txtTelefonoEmer.setNextFocusableComponent(cboActivo);
-        cboActivo.setNextFocusableComponent(txtComentario);         
+        cboActivo.setNextFocusableComponent(txtComentario);
         txtComentario.setNextFocusableComponent(btnGuardar);
         btnGuardar.setNextFocusableComponent(btnCancelar);
     }

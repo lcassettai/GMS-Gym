@@ -508,7 +508,7 @@ public class formNuevoPago extends javax.swing.JFrame {
             if (alumno.verificarDeudas() == 0) {
                 if (montoEntregado < totalAPagar) {
                     float deuda = totalAPagar - montoEntregado;
-                    if (JOptionPane.showConfirmDialog(this, "Se va a realizar un pago por : $ " + totalAPagar + "\nDesea continuar?", "Registrar pago", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (JOptionPane.showConfirmDialog(this, "Se va a registrar un pago por : $ " + montoEntregado + "\nDesea continuar?", "Registrar pago", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         if (JOptionPane.showConfirmDialog(this, "Si continua se va a registrar a " + alumno.getApellido() + ",  " + alumno.getNombre()
                                 + "\ncomo deudor/a por un monto de : $ " + deuda + "\nEsta seguro que desea continuar?", "Deudor", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                             Deudor d = new Deudor(deuda, alumno.getCodCliente());

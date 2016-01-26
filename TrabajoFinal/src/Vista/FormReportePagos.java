@@ -50,7 +50,7 @@ public class FormReportePagos extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "NroCuota", "Alumno", "Actividad", "Monto", "Promocion", "Descuento", "Empleado", "Fecha", "Hora"
+                "Tipo De Pago", "Alumno", "Actividad", "Monto", "Promocion", "Descuento", "Empleado", "Fecha", "Hora"
             }
         ));
         jScrollPane1.setViewportView(tblPagos);
@@ -143,7 +143,7 @@ public class FormReportePagos extends javax.swing.JFrame {
                 ReporteTotalTableModel rtbl = new ReporteTotalTableModel(listaPagos);
                 tblPagos.setModel(rtbl);
 
-                lblTotal.setText("$ "+String.valueOf(cp.obtenerTotalReporte(fechaIn, fechaFin)));
+                lblTotal.setText("$ "+String.valueOf(obtenerMontoTotal()));
             }
             else{
                 JOptionPane.showMessageDialog(this, "No se encontraron resultados");
@@ -164,6 +164,14 @@ public class FormReportePagos extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+    
+    private float obtenerMontoTotal(){
+        float total = 0;
+        for (int i = 0; i < tblPagos.getRowCount(); i++) {
+           total +=  (Float)tblPagos.getValueAt(i, 3) - (Float)tblPagos.getValueAt(i, 5);
+        }
+        return total;
     }
 
     public static void main(String args[]) {

@@ -35,9 +35,6 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="miAbmAlumno">
               <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F1"/>
-                </Property>
                 <Property name="text" type="java.lang.String" value="Alumnos"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -89,12 +86,9 @@
                 <Property name="text" type="java.lang.String" value="Clases"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miAbmHorarios">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Horarios"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAbmClasesActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

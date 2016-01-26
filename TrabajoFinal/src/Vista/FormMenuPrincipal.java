@@ -67,7 +67,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miAbmInscripciones = new javax.swing.JMenuItem();
         miAbmReservas = new javax.swing.JMenuItem();
         miAbmClases = new javax.swing.JMenuItem();
-        miAbmHorarios = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         miBuscarAlumno = new javax.swing.JMenuItem();
         miBuscarEmpleado = new javax.swing.JMenuItem();
@@ -365,7 +364,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         itmAbmAlumno.setText("Gestionar");
 
-        miAbmAlumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         miAbmAlumno.setText("Alumnos");
         miAbmAlumno.setEnabled(false);
         miAbmAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -412,11 +410,12 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         miAbmClases.setText("Clases");
         miAbmClases.setEnabled(false);
+        miAbmClases.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAbmClasesActionPerformed(evt);
+            }
+        });
         itmAbmAlumno.add(miAbmClases);
-
-        miAbmHorarios.setText("Horarios");
-        miAbmHorarios.setEnabled(false);
-        itmAbmAlumno.add(miAbmHorarios);
 
         jMenuBar1.add(itmAbmAlumno);
 
@@ -568,14 +567,9 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private void btnNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoAlumnoActionPerformed
         formNuevoAlumno na = new formNuevoAlumno();
         na.setLocationRelativeTo(this);
+        na.activarNuevo();
         na.setVisible(true);
     }//GEN-LAST:event_btnNuevoAlumnoActionPerformed
-
-    private void miAbmAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmAlumnoActionPerformed
-        formNuevoAlumno na = new formNuevoAlumno();
-        na.setLocationRelativeTo(this);
-        na.setVisible(true);
-    }//GEN-LAST:event_miAbmAlumnoActionPerformed
 
     private void miAbmEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmEmpleadosActionPerformed
         formNuevoEmpleado ne = new formNuevoEmpleado();
@@ -721,6 +715,17 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         fca.setVisible(true);
     }//GEN-LAST:event_miAyudaMousePressed
 
+    private void miAbmClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmClasesActionPerformed
+        FormGestionarClases fgi = new FormGestionarClases();
+        fgi.setVisible(true);
+    }//GEN-LAST:event_miAbmClasesActionPerformed
+
+    private void miAbmAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmAlumnoActionPerformed
+        formNuevoAlumno na = new formNuevoAlumno();
+        na.setLocationRelativeTo(this);
+        na.setVisible(true);
+    }//GEN-LAST:event_miAbmAlumnoActionPerformed
+
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (resp == JOptionPane.YES_OPTION) {
@@ -803,8 +808,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformDeudor.setEnabled(x);
         miInformPago.setEnabled(x);
         miAbmEmpleados.setEnabled(x);
-        miAbmPromociones.setEnabled(x);
-        miAbmHorarios.setEnabled(x);
+        miAbmPromociones.setEnabled(x);        
         txtBuscar.setEnabled(x);
         if (!x) {
             login.borrar();
@@ -905,7 +909,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miAbmAlumno;
     private javax.swing.JMenuItem miAbmClases;
     private javax.swing.JMenuItem miAbmEmpleados;
-    private javax.swing.JMenuItem miAbmHorarios;
     private javax.swing.JMenuItem miAbmInscripciones;
     private javax.swing.JMenuItem miAbmPromociones;
     private javax.swing.JMenuItem miAbmReservas;

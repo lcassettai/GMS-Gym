@@ -20,10 +20,10 @@ public class formGestionarActividades extends javax.swing.JFrame {
     ArrayList<Actividad> lista;
 
     public formGestionarActividades() {
-        initComponents();
-        this.setResizable(false);
+        initComponents();        
         cargarActividades();
         nuevo = 0;
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
 
@@ -405,7 +405,7 @@ public class formGestionarActividades extends javax.swing.JFrame {
         for (String tipo : tipos) {
             cboTipoActividad.addItem(tipo);
         }
-
+              
         actualizarLista();
 
     }
