@@ -40,7 +40,6 @@ public class FormGestionarClases extends javax.swing.JFrame {
         habilitar(false);
         nuevo = 0;
         codClaseSeleccionada = -1;
-    
 
     }
 
@@ -215,52 +214,61 @@ public class FormGestionarClases extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(timeFin, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtCupo, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(timeInicio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE))
-                    .addComponent(cboProfesores, 0, 176, Short.MAX_VALUE)
-                    .addComponent(cboTipoActividad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel8))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cboTipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(cboProfesores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(1, 1, 1)
+                                    .addComponent(txtCupo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(1, 1, 1))
+                                .addComponent(timeInicio, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(timeFin, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGap(441, 441, 441)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(cboProfesores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(cboTipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txtCupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(timeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(timeFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cboProfesores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cboTipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtCupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(timeInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(timeFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))))
+                .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -272,10 +280,16 @@ public class FormGestionarClases extends javax.swing.JFrame {
         habilitar(true);
         nuevo = 1;
         borrar();
+        tblClase.clearSelection();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        nuevo = 2;
+        if (codClaseSeleccionada > -1 && tblClase.getSelectedRow() > -1) {
+            nuevo = 2;
+            habilitar(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar la clase que desea editar", "Editar Clase", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -284,6 +298,7 @@ public class FormGestionarClases extends javax.swing.JFrame {
             cc.eliminarClase(codClaseSeleccionada);
             actualizarTabla();
             codClaseSeleccionada = -1;
+            tblClase.clearSelection();
             borrar();
             JOptionPane.showMessageDialog(this, "Se elimino la clase correctamente!", "Eliminar Clase", JOptionPane.INFORMATION_MESSAGE);
         } else {
@@ -292,43 +307,47 @@ public class FormGestionarClases extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (validacion()) {
+            Clase clase = new Clase();
+            clase.setIdACtividad(cboTipoActividad.getSelectedIndex() + 1);
+            clase.setCupo(Integer.parseInt(txtCupo.getText()));
 
-        Clase clase = new Clase();
-        clase.setIdACtividad(cboTipoActividad.getSelectedIndex() + 1);
-        clase.setCupo(Integer.parseInt(txtCupo.getText()));
+            //formateo el date para que solo obtenga la hora 
+            DateFormat fechaHora = new SimpleDateFormat("HH:mm:ss");
+            String hIni = fechaHora.format(timeInicio.getValue());
+            String hFin = fechaHora.format(timeFin.getValue());
 
-        //formateo el date para que solo obtenga la hora 
-        DateFormat fechaHora = new SimpleDateFormat("HH:mm:ss");
-        String hIni = fechaHora.format(timeInicio.getValue());
-        String hFin = fechaHora.format(timeFin.getValue());
+            clase.setHoraInicio(hIni);
+            clase.setHoraFin(hFin);
 
-        clase.setHoraInicio(hIni);
-        clase.setHoraFin(hFin);
-
-        /* Obtiene el profesor seleccionado en el combo box
-         y lo relaciona con el arrayList que contiene los profesores para obtener el id
-         */
-        clase.setIdEmpleado(listaProfesores.get(cboProfesores.getSelectedIndex()).getCodEmpleado());
-
-        if (nuevo == 1) {
+            /* Obtiene el profesor seleccionado en el combo box
+             y lo relaciona con el arrayList que contiene los profesores para obtener el id
+             */
+            clase.setIdEmpleado(listaProfesores.get(cboProfesores.getSelectedIndex()).getCodEmpleado());
             ControladorClases cc = new ControladorClases();
-            cc.agregarNuevaClase(clase);
-            JOptionPane.showMessageDialog(this, "Se agrego la nueva clase con exito!", "Nueva Clase", JOptionPane.INFORMATION_MESSAGE);
-        } else if (nuevo == 2) {
-
+            if (nuevo == 1) {
+                cc.agregarNuevaClase(clase);
+                JOptionPane.showMessageDialog(this, "Se agrego la nueva clase con exito!", "Nueva Clase", JOptionPane.INFORMATION_MESSAGE);
+            } else if (nuevo == 2) {
+                clase.setIdClase(codClaseSeleccionada);
+                cc.editarClase(clase);
+                JOptionPane.showMessageDialog(this, "Se agregaron los cambios con exito!", "Editar Clase", JOptionPane.INFORMATION_MESSAGE);
+            }
+            actualizarTabla();
+            nuevo = 0;
+            habilitar(false);
+            codClaseSeleccionada = -1;
+            borrar();
+            tblClase.clearSelection();
         }
-        actualizarTabla();
-        nuevo = 0;
-        habilitar(false);
-        codClaseSeleccionada = -1;
-        borrar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         habilitar(false);
-        nuevo = 0;        
+        nuevo = 0;
         borrar();
-          codClaseSeleccionada = -1;
+        codClaseSeleccionada = -1;
+        tblClase.clearSelection();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -338,9 +357,42 @@ public class FormGestionarClases extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         cargarActividades();
         obtenerProfesores();
-        actualizarTabla();     
+        actualizarTabla();
         codClaseSeleccionada = -1;
     }//GEN-LAST:event_formWindowOpened
+
+    private void tblClaseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClaseMousePressed
+        if (tblClase.isEnabled()) {
+            int i = tblClase.getSelectedRow();
+            if (i > -1 && i < tblClase.getRowCount()) {
+                Clase c = listaClases.get(i);
+
+                SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+                String hIni = c.getHoraInicio();
+                String hFin = c.getHoraFin();
+                try {
+                    Date date = formatter.parse(hIni);
+                    timeInicio.setValue(date);
+                    date = formatter.parse(hFin);
+                    timeFin.setValue(date);
+
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                txtCupo.setText(String.valueOf(c.getCupo()));
+                cboTipoActividad.setSelectedIndex(c.getIdACtividad() - 1);
+
+                for (int j = 0; j < listaProfesores.size(); j++) {
+                    if (listaProfesores.get(j).getCodEmpleado() == c.getIdEmpleado()) {
+                        cboProfesores.setSelectedIndex(j);
+                    }
+                }
+                codClaseSeleccionada = c.getIdClase();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "No puede seleccionar elementos mientras esta editando", "Error", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_tblClaseMousePressed
 
     private void borrar() {
         txtCupo.setText("");
@@ -357,38 +409,9 @@ public class FormGestionarClases extends javax.swing.JFrame {
 
         } catch (ParseException e) {
             e.printStackTrace();
-        }       
+        }
 
     }
-
-    private void tblClaseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClaseMousePressed
-        int i = tblClase.getSelectedRow();
-        if (i > -1 && i < tblClase.getRowCount()) {
-            Clase c = listaClases.get(i);
-
-            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-            String hIni = c.getHoraInicio();
-            String hFin = c.getHoraFin();
-            try {
-                Date date = formatter.parse(hIni);
-                timeInicio.setValue(date);
-                date = formatter.parse(hFin);
-                timeFin.setValue(date);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            txtCupo.setText(String.valueOf(c.getCupo()));
-            cboTipoActividad.setSelectedIndex(c.getIdACtividad() - 1);
-
-            for (int j = 0; j < listaProfesores.size(); j++) {
-                if (listaProfesores.get(j).getCodEmpleado() == c.getIdEmpleado()) {
-                    cboProfesores.setSelectedIndex(j);
-                }
-            }
-            codClaseSeleccionada = c.getIdClase();
-        }
-    }//GEN-LAST:event_tblClaseMousePressed
 
     private void cargarActividades() {
         ControladorActividades ca = new ControladorActividades();
@@ -419,6 +442,47 @@ public class FormGestionarClases extends javax.swing.JFrame {
         btnNuevo.setEnabled(!x);
         btnEditar.setEnabled(!x);
         btnEliminar.setEnabled(!x);
+        tblClase.setEnabled(!x);
+
+    }
+
+    private boolean validacion() {
+        try {
+            if (cboProfesores.getSelectedIndex() < 0) {
+                throw new Exception("Al parecer no hay profesores en la lista!");
+            }
+            if (cboTipoActividad.getSelectedIndex() < 0) {
+                throw new Exception("Al parecer no hay actividades en la lista!");
+            }
+            if (txtCupo.getText().isEmpty()) {
+                throw new Exception("El cupo no puede estar vacio ");
+            }
+            if (!isNumeric(txtCupo.getText())) {
+                throw new Exception("El cupo debe ser de tipo numerico");
+            }
+
+            try {
+                DateFormat fechaHora = new SimpleDateFormat("HH:mm:ss");
+                String hIni = fechaHora.format(timeInicio.getValue());
+                String hFin = fechaHora.format(timeFin.getValue());
+            } catch (Exception e) {
+                throw new Exception("La hora no es valida");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     private void obtenerProfesores() {

@@ -122,4 +122,21 @@ public class ControladorClases {
             desconectar();
         }
     }
+    
+    public void editarClase(Clase c){
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql  = "exec editarClase "+c.getCupo()+","+c.getIdACtividad()+","+c.getIdEmpleado()+",'"
+                          +c.getHoraInicio()+"','"+c.getHoraFin()+"',"+c.getIdClase() ;
+                       
+            st.executeUpdate(sql);
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo editar la clase, motivo : " + e.getMessage());
+        }
+        finally{
+            desconectar();
+        }
+    }
 }

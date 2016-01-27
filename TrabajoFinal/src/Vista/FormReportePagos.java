@@ -47,10 +47,10 @@ public class FormReportePagos extends javax.swing.JFrame {
 
         tblPagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tipo De Pago", "Alumno", "Actividad", "Monto", "Promocion", "Descuento", "Empleado", "Fecha", "Hora"
+                "Tipo De Pago", "Alumno", "Monto Total", "Descuento Total", "Monto Entregado", "Empleado", "Fecha", "Hora"
             }
         ));
         jScrollPane1.setViewportView(tblPagos);
@@ -169,7 +169,7 @@ public class FormReportePagos extends javax.swing.JFrame {
     private float obtenerMontoTotal(){
         float total = 0;
         for (int i = 0; i < tblPagos.getRowCount(); i++) {
-           total +=  (Float)tblPagos.getValueAt(i, 3) - (Float)tblPagos.getValueAt(i, 5);
+           total +=  (Float)tblPagos.getValueAt(i, 4);
         }
         return total;
     }
