@@ -11,10 +11,19 @@ public class Clase {
     private String empleado;
     private int cupo;
     private boolean habilitada;
+    private int idDia;
 
     public Clase() {
     }
 
+    public int getIdDia() {
+        return idDia;
+    }
+
+    public void setIdDia(int idDia) {
+        this.idDia = idDia;
+    }  
+    
     public boolean isHabilitada() {
         return habilitada;
     }

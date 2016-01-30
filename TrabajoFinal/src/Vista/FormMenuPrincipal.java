@@ -32,8 +32,9 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         btnNuevoPago = new javax.swing.JButton();
         btnBuscarCliente = new javax.swing.JButton();
         btnVerAsistencia = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        btnReservaNueva = new javax.swing.JButton();
         btnNuevaReserva = new javax.swing.JButton();
+        btnSalir1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstBusquedaRapida = new javax.swing.JList();
@@ -128,12 +129,12 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/SalirChico.png"))); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnReservaNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ReservaChico.png"))); // NOI18N
+        btnReservaNueva.setText("Nueva Reserva");
+        btnReservaNueva.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReservaNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnReservaNuevaActionPerformed(evt);
             }
         });
 
@@ -147,6 +148,15 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/SalirChico.png"))); // NOI18N
+        btnSalir1.setText("Salir");
+        btnSalir1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -154,12 +164,13 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevoAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                    .addComponent(btnNuevoAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btnVerAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNuevaReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNuevaReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReservaNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -175,9 +186,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReservaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         lstBusquedaRapida.setEnabled(false);
@@ -248,7 +261,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                     .addComponent(lblMatricula)
                     .addComponent(lblEstado)
                     .addComponent(lblDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -560,9 +573,17 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         salir();
     }//GEN-LAST:event_miSalirMouseClicked
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        salir();
-    }//GEN-LAST:event_btnSalirActionPerformed
+    private void btnReservaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservaNuevaActionPerformed
+        int i = lstBusquedaRapida.getSelectedIndex();
+        if (i > -1) {
+            Alumno a = listaAlumnos.get(i);
+            FormNuevasReservas fnr = new FormNuevasReservas();
+            fnr.setAlumno(a);           
+            fnr.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno!");
+        }
+    }//GEN-LAST:event_btnReservaNuevaActionPerformed
 
     private void btnNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoAlumnoActionPerformed
         formNuevoAlumno na = new formNuevoAlumno();
@@ -726,6 +747,10 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         na.setVisible(true);
     }//GEN-LAST:event_miAbmAlumnoActionPerformed
 
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
+        
+    }//GEN-LAST:event_btnSalir1ActionPerformed
+
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (resp == JOptionPane.YES_OPTION) {
@@ -759,9 +784,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     //Metodo para habilitar las opciones a las cuales pueden acceder los empleados
     public void habilitarEmpleado(Boolean x) {
         miAbmAlumno.setEnabled(x);
-        miAbmClases.setEnabled(x);
+       
         miAbmInscripciones.setEnabled(x);
-
         miAbmReservas.setEnabled(x);
         miIniciar.setEnabled(!x);
         miCerrar.setEnabled(x);
@@ -878,7 +902,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevaReserva;
     private javax.swing.JButton btnNuevoAlumno;
     private javax.swing.JButton btnNuevoPago;
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnReservaNueva;
+    private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnVerAsistencia;
     private javax.swing.JMenu itmAbmAlumno;
     private javax.swing.JMenu itmIniciar;

@@ -67,7 +67,7 @@ public class ControladorClases {
         try {
             conectar();
             Statement st = conexion.createStatement();
-            String sql = "exec nuevaClase "+c.getCupo()+","+c.getIdACtividad()+","+c.getIdEmpleado()+",'"+c.getHoraInicio()+"','"+c.getHoraFin()+"'";
+            String sql = "exec nuevaClase "+c.getCupo()+","+c.getIdACtividad()+","+c.getIdEmpleado()+",'"+c.getHoraInicio()+"','"+c.getHoraFin()+"',"+c.getIdDia();
             st.executeUpdate(sql);
             st.close();
         } catch (Exception e) {
@@ -95,6 +95,7 @@ public class ControladorClases {
                 c.setIdACtividad(rs.getInt(6));
                 c.setIdEmpleado(rs.getInt(7));
                 c.setIdClase(rs.getInt(8));
+                c.setIdDia(rs.getInt(9));
                 listaClases.add(c);
             }
             rs.close();
@@ -128,7 +129,7 @@ public class ControladorClases {
             conectar();
             Statement st = conexion.createStatement();
             String sql  = "exec editarClase "+c.getCupo()+","+c.getIdACtividad()+","+c.getIdEmpleado()+",'"
-                          +c.getHoraInicio()+"','"+c.getHoraFin()+"',"+c.getIdClase() ;
+                          +c.getHoraInicio()+"','"+c.getHoraFin()+"',"+c.getIdClase()+","+c.getIdDia();
                        
             st.executeUpdate(sql);
             st.close();

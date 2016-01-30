@@ -466,9 +466,9 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        habilitar(true);
-        cboActivo.setSelected(true);
+        habilitar(true);        
         borrar();
+        cboActivo.setSelected(true);
         tblEmpleados.clearSelection();
         nuevo = 1;
 
