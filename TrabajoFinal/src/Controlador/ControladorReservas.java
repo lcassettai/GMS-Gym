@@ -4,6 +4,7 @@ import Modelo.Actividad;
 import Modelo.Clase;
 import Modelo.Dias;
 import Modelo.Empleado;
+import Modelo.Inscripcion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -108,7 +109,7 @@ public class ControladorReservas {
         return listaDias;
     }
 
-    public ArrayList<Clase> obtenerHorarioDisponible(int codActividad, int codEmpleado,int idDia) {
+    public ArrayList<Clase> obtenerHorarioDisponible(int codActividad, int codEmpleado, int idDia) {
         ArrayList<Clase> listaHorarios = new ArrayList<>();
         try {
             conectar();
@@ -132,4 +133,92 @@ public class ControladorReservas {
         }
         return listaHorarios;
     }
+
+    public ArrayList<Inscripcion> buscarInscripciones(int idAlumno) {
+        ArrayList<Inscripcion> lista = new ArrayList<>();
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec SP_buscarInscripcion " + idAlumno;
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                Inscripcion i = new Inscripcion();
+                // a.codAlumno,actividad,fechaInicio,fechaFin,i.diasVencimiento,i.habilitado
+                i.setCodAlumno(rs.getInt(1));
+                i.setActividad(rs.getString(2));
+                i.setFechaIn(rs.getTimestamp(3));
+                i.setFechaFin(rs.getTimestamp(4));
+                i.setDiasVencimiento(rs.getInt(5));
+                i.setHabilitado(rs.getBoolean(6));
+                i.setIdInscripcion(rs.getInt(7));
+                i.setTipoActividad(rs.getString(8));
+                i.setCantDias(i.getDiasVencimiento() / 4);
+                lista.add(i);
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo recuperar la lista de inscripciones ,motivo " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+        return lista;
+    }
+
+    public int obtenerClaseSeleccionada(int codActividad, int codEmpleado, int idDia, String horario) {
+        int idClaseSeleccionada = 0;
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec obtenerClaseSeleccionada " + codActividad + "," + codEmpleado + "," + idDia + ",'" + horario + "'";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                idClaseSeleccionada = rs.getInt(1);
+            }
+            rs.close();
+            st.close();
+
+        } catch (Exception e) {
+            System.out.println("No se pudo obtener la clase seleccionada, motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+        return idClaseSeleccionada;
+    }
+
+    public void agregarNuevaReserva(int idInscripcion,int codClase,int codCliente) {        
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec nuevaReserva "+ idInscripcion + ","+ codClase +","+codCliente;
+            st.executeUpdate(sql);        
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo insertar la inscripcion motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }        
+    }
+    
+      public boolean verificarReservaAlumno(int idInscripcion,int codClase,int codCliente) {
+        boolean existe = true;
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec verificarReservaAlumno " + idInscripcion + "," + codClase + "," + codCliente;
+            ResultSet rs = st.executeQuery(sql);
+            if(rs.next()){
+                existe = false;
+            }
+            rs.close();
+            st.close();
+
+        } catch (Exception e) {
+            System.out.println("No se verificar las reservas, motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+        return existe;
+    }
+
 }

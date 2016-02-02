@@ -11,7 +11,11 @@ import Modelo.Alumno;
 import Modelo.Clase;
 import Modelo.Dias;
 import Modelo.Empleado;
+import Modelo.Inscripcion;
+import Modelo.Reservas;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,12 +25,19 @@ public class FormNuevasReservas extends javax.swing.JFrame {
 
     Alumno alumno;
     ArrayList<Actividad> listaActividades;
+    ArrayList<Inscripcion> listaInscripciones;
     ArrayList<Empleado> listaEmpleado;
     ArrayList<Dias> listaDias;
     ArrayList<Clase> listaHorario;
+    ArrayList<Reservas> listaReservas;
+    //col1 idInscripcion col2 idClase
+    int[][] potencialesReservas = new int[20][2];
+    private DefaultTableModel modelo;
 
     public FormNuevasReservas() {
         initComponents();
+        modelo = (DefaultTableModel) tblReservas.getModel();
+        listaReservas = new ArrayList<>();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
@@ -36,6 +47,7 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         lblApellido.setText(alumno.getApellido() + ", " + alumno.getNombre());
         lblMatricula.setText(String.valueOf(alumno.getCodCliente()));
         obtenerActividad();
+        obtenerInscripciones();
     }
 
     @SuppressWarnings("unchecked")
@@ -107,9 +119,19 @@ public class FormNuevasReservas extends javax.swing.JFrame {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/agregarDetalle.png"))); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Remover.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnReservar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ReservaChico.png"))); // NOI18N
         btnReservar.setText("Reservar");
@@ -162,9 +184,9 @@ public class FormNuevasReservas extends javax.swing.JFrame {
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cboProfesor, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cboHorario, 0, 167, Short.MAX_VALUE)
-                            .addComponent(cboDia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cboDia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboProfesor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 120, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -233,9 +255,11 @@ public class FormNuevasReservas extends javax.swing.JFrame {
     private void obtenerActividad() {
         ControladorReservas cr = new ControladorReservas();
         listaActividades = cr.obtenerActividades(alumno.getCodCliente());
+
         for (int i = 0; i < listaActividades.size(); i++) {
             cboActividad.addItem(listaActividades.get(i).getActividad());
         }
+
     }
 
     //Al momento de cargar las actividades tambien cargar los profesores que estan 
@@ -245,14 +269,30 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         ControladorReservas cr = new ControladorReservas();
 
         cboProfesor.removeAllItems();
+        cboProfesor.setEnabled(true);
+        cboDia.setEnabled(true);
+        cboHorario.setEnabled(true);
 
         int idActividad = obtenerActividadSeleccionada();
 
         if (idActividad > -1) {
             listaEmpleado = cr.obtenerEmpleado(idActividad);
-            for (int i = 0; i < listaEmpleado.size(); i++) {
-                cboProfesor.addItem(listaEmpleado.get(i).getApellido());
+            if (listaEmpleado.size() > 0) {
+                for (int i = 0; i < listaEmpleado.size(); i++) {
+                    cboProfesor.addItem(listaEmpleado.get(i).getApellido());
+                }
+            } else {
+                cboProfesor.setEnabled(false);
+                cboProfesor.addItem("No hay profesores");
+
+                cboDia.setEnabled(false);
+                cboDia.addItem("No hay dias");
+
+                cboHorario.setEnabled(false);
+                cboHorario.addItem("No hay horarios");
+
             }
+
         }
     }//GEN-LAST:event_cboActividadItemStateChanged
 
@@ -289,8 +329,96 @@ public class FormNuevasReservas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservarActionPerformed
-        // TODO add your handling code here:
+        if (listaReservas.size() > 0) {
+            ControladorReservas cr = new ControladorReservas();
+            for (Reservas r : listaReservas) {
+                cr.agregarNuevaReserva(r.getIdInscripcion(), r.getIdClase(), alumno.getCodCliente());
+            }
+            JOptionPane.showMessageDialog(this, "Se agregaron las reservas con exito!", "Reservar", JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe agregar almenos una clase a la lista", "Reservar", JOptionPane.WARNING_MESSAGE);
+        }
+
     }//GEN-LAST:event_btnReservarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        if (validar()) {
+            int idClase = obtenerClaseSeleccionada();
+            String profesor = (String) cboProfesor.getSelectedItem();
+            String acti = (String) cboActividad.getSelectedItem();
+            String dia = (String) cboDia.getSelectedItem();
+            String horario = (String) cboHorario.getSelectedItem();
+            int idInscripcion = 0;
+
+            for (int i = 0; i < listaInscripciones.size(); i++) {
+                if (listaInscripciones.get(i).getTipoActividad().equals(acti)) {
+                    int diaVenc = listaInscripciones.get(i).getCantDias();
+                    if (diaVenc > 0) {
+                        idInscripcion = listaInscripciones.get(i).getIdInscripcion();
+                       
+                        if (verificarListaReserva(idInscripcion, idClase)) {
+                             ControladorReservas cr = new ControladorReservas();
+                            if (cr.verificarReservaAlumno(idInscripcion, idClase, alumno.getCodCliente())) {
+                                listaInscripciones.get(i).setCantDias(diaVenc - 1);
+                                modelo.addRow(new Object[]{profesor, acti, dia, horario});
+                                Reservas r = new Reservas(idInscripcion, idClase);
+                                listaReservas.add(r);
+                            }
+                            else{
+                                  JOptionPane.showMessageDialog(this, "El alumno ya se encuentra inscripto en esa clase", "Agregar Clase", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(this, "No puede agregar dos veces la misma clase", "Agregar Clase", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
+                    } else {
+                        JOptionPane.showMessageDialog(this, "El alumno no puede reservar mas clases para esa actividad", "Agregar Clase", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            }
+
+        }
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        int i = tblReservas.getSelectedRow();
+        if (i > -1) {
+            int idInscripcion = 0;
+            for (int j = 0; j < listaInscripciones.size(); j++) {
+                if (listaInscripciones.get(j).getTipoActividad().equals(tblReservas.getValueAt(i, 1))) {
+                    int diaVenc = listaInscripciones.get(j).getCantDias() + 1;
+                    listaInscripciones.get(j).setCantDias(diaVenc);
+                    break;
+                }
+            }
+
+            listaReservas.remove(i);
+            modelo.removeRow(i);
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento para eliminar", "Eliminar", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private boolean validar() {
+        try {
+
+            if (cboProfesor.getSelectedItem().equals("No hay profesores")) {
+                throw new Exception("No hay profesores disponibles");
+            }
+            if (cboDia.getSelectedItem().equals("No hay dias")) {
+                throw new Exception("No hay dias disponibles");
+            }
+            if (cboHorario.getSelectedItem().equals("No hay horarios")) {
+                throw new Exception("No hay horarios disponibles");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
 
     private int obtenerProfesorSeleccionado() {
         for (Empleado listaEmpleados : listaEmpleado) {
@@ -319,6 +447,32 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         return -1;
     }
 
+    private int obtenerClaseSeleccionada() {
+        ControladorReservas cr = new ControladorReservas();
+        int idActividad = obtenerActividadSeleccionada();
+        int idEmpleado = obtenerProfesorSeleccionado();
+        int idDia = obtenerDiaSeleccionado();
+        String horario = (String) cboHorario.getSelectedItem();
+
+        int idClase = cr.obtenerClaseSeleccionada(idActividad, idEmpleado, idDia, horario);
+
+        return idClase;
+    }
+
+    private void obtenerInscripciones() {
+        ControladorReservas cr = new ControladorReservas();
+        listaInscripciones = cr.buscarInscripciones(alumno.getCodCliente());
+    }
+
+    private boolean verificarListaReserva(int idInscripcion, int idClase) {
+        for (int i = 0; i < listaReservas.size(); i++) {
+            if (listaReservas.get(i).getIdInscripcion() == idInscripcion && listaReservas.get(i).getIdClase() == idClase) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -330,16 +484,21 @@ public class FormNuevasReservas extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormNuevasReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormNuevasReservas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormNuevasReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormNuevasReservas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormNuevasReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormNuevasReservas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormNuevasReservas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormNuevasReservas.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>

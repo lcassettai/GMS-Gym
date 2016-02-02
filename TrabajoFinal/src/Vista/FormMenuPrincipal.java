@@ -131,6 +131,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         btnReservaNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ReservaChico.png"))); // NOI18N
         btnReservaNueva.setText("Nueva Reserva");
+        btnReservaNueva.setEnabled(false);
         btnReservaNueva.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnReservaNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -803,6 +804,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformDeudor.setEnabled(x);
         miInformPago.setEnabled(x);
         txtBuscar.setEnabled(x);
+        btnReservaNueva.setEnabled(x);
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");
@@ -834,6 +836,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miAbmEmpleados.setEnabled(x);
         miAbmPromociones.setEnabled(x);        
         txtBuscar.setEnabled(x);
+        btnReservaNueva.setEnabled(x);
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");

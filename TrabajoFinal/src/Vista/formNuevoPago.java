@@ -391,7 +391,7 @@ public class formNuevoPago extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         //Obtengo la actividad y la promocion seleccionada
-
+        
         if (validarFecha()) {
             Actividad a = listaActividades.get(cboActividades.getSelectedIndex());
             Promocion p = listaPromociones.get(cboPromocion.getSelectedIndex());
