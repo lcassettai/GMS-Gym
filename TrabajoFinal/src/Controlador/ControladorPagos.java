@@ -265,11 +265,11 @@ public class ControladorPagos {
             while (rs.next()) {
                 ReporteTotalPagos rtp = new ReporteTotalPagos();
                 rtp.setNroCuota(rs.getInt(1));
-                rtp.setAlumno(rs.getString(2));
-                rtp.setActividad(rs.getString(3));
-                rtp.setMonto(rs.getFloat(4));
-                rtp.setPromocion(rs.getString(5));
-                rtp.setDescuento(rs.getFloat(6));
+                rtp.setTipoPago(rs.getString(2));
+                rtp.setAlumno(rs.getString(3));                
+                rtp.setMonto(rs.getFloat(4));               
+                rtp.setDescuento(rs.getFloat(5));
+                rtp.setMontoEntregado(rs.getFloat(6));
                 rtp.setEmpleado(rs.getString(7));
                 rtp.setFecha(rs.getString(8));
                 rtp.setHora(rs.getString(9));

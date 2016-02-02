@@ -14,19 +14,18 @@ import javax.swing.JOptionPane;
  */
 public class FormPagarDeuda extends javax.swing.JFrame {
 
-
     private int codDeudor;
     private int codEmpleado;
     private float deuda;
     private String apellido;
-    
+
     public FormPagarDeuda() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
     }
-    
-    public void setearDeudorEmpleado(int deudor, int codEmpleado,float deuda,String apellido){
+
+    public void setearDeudorEmpleado(int deudor, int codEmpleado, float deuda, String apellido) {
         this.codDeudor = deudor;
         this.codEmpleado = codEmpleado;
         this.deuda = deuda;
@@ -34,7 +33,6 @@ public class FormPagarDeuda extends javax.swing.JFrame {
         cargarCampos();
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,6 +51,7 @@ public class FormPagarDeuda extends javax.swing.JFrame {
         txtComentario = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cancelar Deuda");
 
         jLabel1.setText("Monto de la deuda :");
 
@@ -77,6 +76,11 @@ public class FormPagarDeuda extends javax.swing.JFrame {
 
         btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Remover.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Detalle :");
 
@@ -150,40 +154,58 @@ public class FormPagarDeuda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        if(validarCampos()){
+        if (validarCampos()) {
             ControladorPagos cp = new ControladorPagos();
             Float monto = Float.parseFloat(txtMontoEntregado.getText());
-            cp.saldarDeuda(monto, codDeudor, codEmpleado, txtComentario.getText());            
-            JOptionPane.showMessageDialog(this, "Se registro el pago de la deuda con exito!");
+            cp.saldarDeuda(monto, codDeudor, codEmpleado, txtComentario.getText());
+            JOptionPane.showMessageDialog(this, "Se registro el pago de la deuda con exito!", "Pagar Deuda", JOptionPane.INFORMATION_MESSAGE);
             this.dispose();
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
-    
-    private void cargarCampos(){
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cargarCampos() {
         lblAlumno.setText(apellido);
         lblMontoDeuda.setText(String.valueOf(deuda));
         txtMontoEntregado.setText(String.valueOf(deuda));
     }
-    
-    private boolean validarCampos(){
+
+    private boolean validarCampos() {
         boolean validacion = true;
         try {
-            if(txtMontoEntregado.getText().isEmpty()){
+            if (txtMontoEntregado.getText().isEmpty()) {
                 throw new Exception("Ingrese el monto entregado");
             }
-            if(Float.parseFloat(txtMontoEntregado.getText()) >  deuda){
+            
+            if(!isNumeric(txtMontoEntregado.getText())){
+                throw new Exception("El monto entregado debe ser de tipo numerico");
+            }
+            
+            if (Float.parseFloat(txtMontoEntregado.getText()) > deuda) {
                 throw new Exception("El monto entregado no puede ser mayor al monto de la deuda");
             }
-            if(Float.parseFloat(txtMontoEntregado.getText()) <= 0){
+            if (Float.parseFloat(txtMontoEntregado.getText()) <= 0) {
                 throw new Exception("El monto entregado no puede menor o igual a 0");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             validacion = false;
         }
         return validacion;
     }
-    
+
+    private static boolean isNumeric(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -8,24 +8,22 @@ package Vista;
 import Controlador.ControladorPromociones;
 import Modelo.Promocion;
 import java.util.ArrayList;
-import java.util.HashSet;
 import javax.swing.JOptionPane;
-
 
 public class FormGestionarPromociones extends javax.swing.JFrame {
 
     private int nuevo;
     private ArrayList<Promocion> lista;
+
     public FormGestionarPromociones() {
         initComponents();
         setLocationRelativeTo(null);
         nuevo = 0;
         this.setResizable(false);
         actualizarLista();
-        habilitar(false);        
+        habilitar(false);
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -52,6 +50,7 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestionar Promociones");
 
         jLabel3.setText("Monto de descuento :");
 
@@ -70,6 +69,9 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
         lstPromociones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstPromocionesMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lstPromocionesMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(lstPromociones);
@@ -205,9 +207,9 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(lblCodigo))
@@ -223,9 +225,7 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -254,57 +254,61 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         habilitar(true);
         borrar();
-        nuevo = 1;
+        nuevo = 1;        
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if(lstPromociones.getSelectedIndex() >= 0){
-            nuevo = 2;
-            habilitar(true);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Seleccione una promocion de la lista para editar");
+        if (!txtNombre.getText().equals("Ninguna")) {
+            if (lstPromociones.getSelectedIndex() >= 0) {
+                nuevo = 2;
+                habilitar(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione una promocion de la lista para editar", "Editar Promocion", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Esta promocion no se puede editar", "Editar Promocion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if(lstPromociones.getSelectedIndex()>-1){
-            int i = Integer.parseInt(lblCodigo.getText());
-           ControladorPromociones cp = new ControladorPromociones();
-           cp.eliminarPromocion(i);
-           JOptionPane.showMessageDialog(this, "Se elimino la promocion correctamente");
-           actualizarLista();
-           borrar();
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Seleccione la actividad a eliminar");
+        if (!txtNombre.getText().equals("Ninguna")) {
+            if (lstPromociones.getSelectedIndex() > -1) {
+                int i = Integer.parseInt(lblCodigo.getText());
+                ControladorPromociones cp = new ControladorPromociones();
+                cp.eliminarPromocion(i);
+                JOptionPane.showMessageDialog(this, "Se elimino la promocion correctamente", "Eliminar Promocion", JOptionPane.INFORMATION_MESSAGE);
+                actualizarLista();
+                borrar();
+            } else {
+                JOptionPane.showMessageDialog(this, "Seleccione la promocion a eliminar", "Eliminar Promocion", JOptionPane.WARNING_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Esta promocion no se puede eliminar", "Eliminar Promocion", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if(validar()){
-           Promocion p =  new Promocion();           
-           p.setPromocion(txtNombre.getText());
-           p.setMonto(Float.parseFloat(txtMonto.getText()));
-           p.setDescripcion(txtDescripcion.getText());
+        if (validar()) {
+            Promocion p = new Promocion();
+            p.setPromocion(txtNombre.getText());
+            p.setMonto(Float.parseFloat(txtMonto.getText()));
+            p.setDescripcion(txtDescripcion.getText());
             ControladorPromociones cp = new ControladorPromociones();
-            if(nuevo == 1){
+            if (nuevo == 1) {
                 cp.cargarPromocion(p);
-                JOptionPane.showMessageDialog(this, "Se agrego la promocion con exito!");
-            }
-            else{
-                if(nuevo == 2){
-                  p.setCodigo(Integer.parseInt(lblCodigo.getText()));
-                  cp.actualizarPromocion(p);
-                  JOptionPane.showMessageDialog(this, "Se actualizo la promocion con exito!");
+                JOptionPane.showMessageDialog(this, "Se agrego la promocion con exito!", "Nueva Promocion", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                if (nuevo == 2) {
+                    p.setCodigo(Integer.parseInt(lblCodigo.getText()));
+                    cp.actualizarPromocion(p);
+                    JOptionPane.showMessageDialog(this, "Se actualizo la promocion con exito!", "Editar Promocion", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             nuevo = 0;
             habilitar(false);
             actualizarLista();
             borrar();
-            
+
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -313,48 +317,57 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
         borrar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void actualizarLista(){
+    private void actualizarLista() {
         ControladorPromociones cp = new ControladorPromociones();
         lista = cp.consultarPromociones();
         lstPromociones.setListData(lista.toArray());
     }
-    
-    private void cargarCampos(int i){
+
+    private void cargarCampos(int i) {
         Promocion p = lista.get(i);
-       
+
         lblCodigo.setText(String.valueOf(p.getCodigo()));
         txtMonto.setText(String.valueOf(p.getMonto()));
         txtNombre.setText(p.getPromocion());
         txtDescripcion.setText(p.getDescripcion());
-        
+
     }
-    
-    
-    private Boolean validar(){
-        try {            
-            if(txtNombre.getText().isEmpty()){
+
+    private Boolean validar() {
+        try {
+            if (txtNombre.getText().isEmpty()) {
                 throw new Exception("Ingrese el nombre de la promocion");
             }
-            if(txtMonto.getText().isEmpty()){
+            if (txtMonto.getText().isEmpty()) {
                 throw new Exception("Ingrese el monto de la promocion");
             }
-            
+
+            if (!isFloat(txtMonto.getText())) {
+                throw new Exception("El monto del descuento debe ser numerico");
+            }
+
+            float auxMonto = Float.parseFloat(txtMonto.getText());
+
+            if (auxMonto > 9999 || auxMonto <= 0) {
+                throw new Exception("El monto del descuento debe ser mayor o igual a 0 y menor a 9999");
+            }
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
-    
-    private void borrar(){
+
+    private void borrar() {
         txtMonto.setText("");
         txtNombre.setText("");
         txtDescripcion.setText("");
         lblCodigo.setText("-");
         lstPromociones.clearSelection();
     }
-    
-    private void habilitar(Boolean x){
+
+    private void habilitar(Boolean x) {
         txtMonto.setEnabled(x);
         txtNombre.setEnabled(x);
         btnCancelar.setEnabled(x);
@@ -362,15 +375,35 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
         btnNuevo.setEnabled(!x);
         btnGuardar.setEnabled(x);
         btnEliminar.setEnabled(!x);
+        lstPromociones.enable(!x);
     }
-    
+
+    private static boolean isFloat(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void lstPromocionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstPromocionesMouseClicked
-        cargarCampos(lstPromociones.getSelectedIndex());
+
     }//GEN-LAST:event_lstPromocionesMouseClicked
+
+    private void lstPromocionesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstPromocionesMousePressed
+       try{           
+           cargarCampos(lstPromociones.getSelectedIndex());
+       }
+       catch(Exception e){
+           JOptionPane.showMessageDialog(this, "No puede seleccionar elementos mientras esta editando","Error",JOptionPane.WARNING_MESSAGE);
+       }
+        
+    }//GEN-LAST:event_lstPromocionesMousePressed
 
     /**
      * @param args the command line arguments

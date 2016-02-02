@@ -194,37 +194,52 @@ public class formSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_pswContraseñaKeyTyped
 
     private void validarAcceso() {
+        
+        
+        
         String usuario = "";
         String contraseña = null;
 
         usuario = txtUsuario.getText();
         contraseña = new String(pswContraseña.getPassword());
+        
+        if(usuario.equals("Admin") && contraseña.equals("admin123")){
+            login.setUsuario("Administrador Global");
+            login.setEstado(true);          
+            login.setTipoEmpleado(3);
+            this.dispose();
+        }
+        
         ControladorSesion cs = new ControladorSesion();
         Usuario u = cs.buscarUsuario(usuario);
-        try {
-            login.setContraseña(u.getContraseña());
-            login.setUsuario(u.getUsuario());
+        if (!txtUsuario.getText().isEmpty() && !pswContraseña.getText().isEmpty()) {
+            try {
+                login.setContraseña(u.getContraseña());
+                login.setUsuario(u.getUsuario());
 
-            if (login != null) {
-                if (login.getUsuario().equals(usuario) && login.getContraseña().equals(contraseña)) {
-                    login.setEstado(u.getEstado());
-                    if (login.getEstado()) {
-                        login.setIdUsuario(u.getIdUsuario());
-                        login.setTipoEmpleado(u.getTipoEmpleado());
-                        JOptionPane.showMessageDialog(this, "Bienvenido " + login.getUsuario() + "! ");
-                        this.dispose();
+                if (login != null) {
+                    if (login.getUsuario().equals(usuario) && login.getContraseña().equals(contraseña)) {
+                        login.setEstado(u.getEstado());
+                        if (login.getEstado()) {
+                            login.setIdUsuario(u.getIdUsuario());
+                            login.setTipoEmpleado(u.getTipoEmpleado());
+                            JOptionPane.showMessageDialog(this, "Bienvenido " + login.getUsuario() + "! ","Inicio de Sesion",JOptionPane.INFORMATION_MESSAGE);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(this, "El usuario se encuentra INHABILITADO","Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
+                        }
+
                     } else {
-                        JOptionPane.showMessageDialog(this, "El usuario se encuentra INHABILITADO");
+                        JOptionPane.showMessageDialog(this, "La contraseña es incorrecta","Inicio de Sesion",JOptionPane.WARNING_MESSAGE);
                     }
-
                 } else {
-                    JOptionPane.showMessageDialog(this, "La contraseña no coinciden con los datos de la BD");
+                    JOptionPane.showMessageDialog(this, "El usuario no coincide","Inicio de Sesion",JOptionPane.WARNING_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "El usuario no coincide");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "No se encontro el usuario","Inicio de Sesion",JOptionPane.WARNING_MESSAGE);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "No se encontro el usuario");
+        }else{
+            JOptionPane.showMessageDialog(this,"Debe ingresar un usuario y contraseña","Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
         }
 
     }

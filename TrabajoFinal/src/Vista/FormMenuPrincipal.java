@@ -3,9 +3,7 @@ package Vista;
 import Controlador.ControladorAlumno;
 import Controlador.ControladorPagos;
 import Modelo.Alumno;
-import Modelo.AlumnosTableModel;
 import Modelo.Deudor;
-import Modelo.Empleado;
 import Modelo.Inscripcion;
 import Modelo.InscripcionesTableModel;
 import Modelo.Usuario;
@@ -13,15 +11,11 @@ import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Home
- */
 public class FormMenuPrincipal extends javax.swing.JFrame {
 
     Usuario login;
     ArrayList<Alumno> listaAlumnos = new ArrayList<>();
-
+   
     public FormMenuPrincipal() {
         initComponents();
         login = new Usuario();
@@ -38,8 +32,9 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         btnNuevoPago = new javax.swing.JButton();
         btnBuscarCliente = new javax.swing.JButton();
         btnVerAsistencia = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        btnReservaNueva = new javax.swing.JButton();
         btnNuevaReserva = new javax.swing.JButton();
+        btnSalir1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lstBusquedaRapida = new javax.swing.JList();
@@ -73,7 +68,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miAbmInscripciones = new javax.swing.JMenuItem();
         miAbmReservas = new javax.swing.JMenuItem();
         miAbmClases = new javax.swing.JMenuItem();
-        miAbmHorarios = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         miBuscarAlumno = new javax.swing.JMenuItem();
         miBuscarEmpleado = new javax.swing.JMenuItem();
@@ -83,7 +77,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformAsistencia = new javax.swing.JMenuItem();
         miInformDeudor = new javax.swing.JMenuItem();
         miAyuda = new javax.swing.JMenu();
-        jmiMenuAsistencias = new javax.swing.JMenuItem();
         miSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -136,12 +129,13 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/SalirChico.png"))); // NOI18N
-        btnSalir.setText("Salir");
-        btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnReservaNueva.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/ReservaChico.png"))); // NOI18N
+        btnReservaNueva.setText("Nueva Reserva");
+        btnReservaNueva.setEnabled(false);
+        btnReservaNueva.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReservaNueva.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnReservaNuevaActionPerformed(evt);
             }
         });
 
@@ -155,6 +149,15 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/SalirChico.png"))); // NOI18N
+        btnSalir1.setText("Salir");
+        btnSalir1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalir1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -162,12 +165,13 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevoAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                    .addComponent(btnNuevoAlumno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnNuevoPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btnVerAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalir, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNuevaReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnNuevaReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReservaNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,15 +187,20 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnReservaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         lstBusquedaRapida.setEnabled(false);
         lstBusquedaRapida.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstBusquedaRapidaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lstBusquedaRapidaMousePressed(evt);
             }
         });
         jScrollPane2.setViewportView(lstBusquedaRapida);
@@ -253,7 +262,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                     .addComponent(lblMatricula)
                     .addComponent(lblEstado)
                     .addComponent(lblDeuda, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +378,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         itmAbmAlumno.setText("Gestionar");
 
-        miAbmAlumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         miAbmAlumno.setText("Alumnos");
         miAbmAlumno.setEnabled(false);
         miAbmAlumno.addActionListener(new java.awt.event.ActionListener() {
@@ -416,11 +424,12 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         miAbmClases.setText("Clases");
         miAbmClases.setEnabled(false);
+        miAbmClases.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAbmClasesActionPerformed(evt);
+            }
+        });
         itmAbmAlumno.add(miAbmClases);
-
-        miAbmHorarios.setText("Horarios");
-        miAbmHorarios.setEnabled(false);
-        itmAbmAlumno.add(miAbmHorarios);
 
         jMenuBar1.add(itmAbmAlumno);
 
@@ -471,16 +480,20 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        miAyuda.setText("Abrir");
-
-        jmiMenuAsistencias.setText("Control de Asistencias");
-        jmiMenuAsistencias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiMenuAsistenciasActionPerformed(evt);
+        miAyuda.setText("Control de Asistencias");
+        miAyuda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                miAyudaMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                miAyudaMousePressed(evt);
             }
         });
-        miAyuda.add(jmiMenuAsistencias);
-
+        miAyuda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAyudaActionPerformed(evt);
+            }
+        });
         jMenuBar1.add(miAyuda);
 
         miSalir.setText("Salir");
@@ -561,21 +574,24 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         salir();
     }//GEN-LAST:event_miSalirMouseClicked
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        salir();
-    }//GEN-LAST:event_btnSalirActionPerformed
+    private void btnReservaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservaNuevaActionPerformed
+        int i = lstBusquedaRapida.getSelectedIndex();
+        if (i > -1) {
+            Alumno a = listaAlumnos.get(i);
+            FormNuevasReservas fnr = new FormNuevasReservas();
+            fnr.setAlumno(a);           
+            fnr.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno!");
+        }
+    }//GEN-LAST:event_btnReservaNuevaActionPerformed
 
     private void btnNuevoAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoAlumnoActionPerformed
         formNuevoAlumno na = new formNuevoAlumno();
         na.setLocationRelativeTo(this);
+        na.activarNuevo();
         na.setVisible(true);
     }//GEN-LAST:event_btnNuevoAlumnoActionPerformed
-
-    private void miAbmAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmAlumnoActionPerformed
-        formNuevoAlumno na = new formNuevoAlumno();
-        na.setLocationRelativeTo(this);
-        na.setVisible(true);
-    }//GEN-LAST:event_miAbmAlumnoActionPerformed
 
     private void miAbmEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmEmpleadosActionPerformed
         formNuevoEmpleado ne = new formNuevoEmpleado();
@@ -594,20 +610,23 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         habilitarAdministrador(false);
         borrar();
         limpiarTabla();
+        ArrayList vacio = new ArrayList();           
+        lstBusquedaRapida.setListData(vacio.toArray());
     }//GEN-LAST:event_miCerrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        if (login.getTipoEmpleado() != 0) {
+          if (login.getTipoEmpleado() != 0) {
             if (login.getTipoEmpleado() == 3) {
                 habilitarAdministrador(true);
-                lblIdSesion.setText(login.getUsuario() + "(Administrador)");
+                lblIdSesion.setText(login.getUsuario() + "(Administrador)");               
             } else {
                 habilitarEmpleado(true);
-                lblIdSesion.setText(login.getUsuario());
+                lblIdSesion.setText(login.getUsuario());             
             }
             borrar();
+            limpiarTabla();
             actualizarAlumnos();
-        }
+        }      
 
     }//GEN-LAST:event_formWindowActivated
 
@@ -623,7 +642,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         if (!txtBuscar.getText().isEmpty()) {
-
             ControladorAlumno ca = new ControladorAlumno();
             listaAlumnos = ca.buscarAlumno(txtBuscar.getText());
             lstBusquedaRapida.setListData(listaAlumnos.toArray());
@@ -634,10 +652,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void lstBusquedaRapidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstBusquedaRapidaMouseClicked
-        int i = lstBusquedaRapida.getSelectedIndex();
-        if (i >= 0) {
-            llenarCampos(i);
-        }
+//        int i = lstBusquedaRapida.getSelectedIndex();
+//       
+//        if (i >= 0) {
+//            llenarCampos(i);
+//        }
     }//GEN-LAST:event_lstBusquedaRapidaMouseClicked
 
     private void btnNuevoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPagoActionPerformed
@@ -654,6 +673,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoPagoActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+   
         if (lstBusquedaRapida.getSelectedIndex() > -1) {
             Alumno a = listaAlumnos.get(lstBusquedaRapida.getSelectedIndex());
             if (a.verificarDeudas() > 0) {
@@ -663,10 +683,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 fpd.setearDeudorEmpleado(d.getIdDeudor(), login.getIdUsuario(), a.verificarDeudas(), a.getApellido());
                 fpd.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas");
+                JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas","Cancelar deuda",JOptionPane.INFORMATION_MESSAGE);
+                
             }
         } else {
-            JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno","Cancelar deuda",JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
@@ -675,12 +696,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         FormInformePagos fip = new FormInformePagos();
         fip.setVisible(true);
     }//GEN-LAST:event_miInformPagoActionPerformed
-
-    private void jmiMenuAsistenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMenuAsistenciasActionPerformed
-        FormControlAsistencia fca = new FormControlAsistencia();
-        fca.setVisible(true);
-
-    }//GEN-LAST:event_jmiMenuAsistenciasActionPerformed
 
     private void btnVerAsistenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAsistenciaActionPerformed
         FormReportesAsistencias fra = new FormReportesAsistencias();
@@ -701,6 +716,41 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         FormReportePagos frp = new FormReportePagos();
         frp.setVisible(true);
     }//GEN-LAST:event_btnNuevaReservaActionPerformed
+
+    private void lstBusquedaRapidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstBusquedaRapidaMousePressed
+        int i = lstBusquedaRapida.getSelectedIndex();       
+        if (i >= 0) {
+            llenarCampos(i);
+        }
+    }//GEN-LAST:event_lstBusquedaRapidaMousePressed
+
+    private void miAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAyudaActionPerformed
+        
+    }//GEN-LAST:event_miAyudaActionPerformed
+
+    private void miAyudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miAyudaMouseClicked
+    
+    }//GEN-LAST:event_miAyudaMouseClicked
+
+    private void miAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miAyudaMousePressed
+          FormControlAsistencia fca = new FormControlAsistencia();
+        fca.setVisible(true);
+    }//GEN-LAST:event_miAyudaMousePressed
+
+    private void miAbmClasesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmClasesActionPerformed
+        FormGestionarClases fgi = new FormGestionarClases();
+        fgi.setVisible(true);
+    }//GEN-LAST:event_miAbmClasesActionPerformed
+
+    private void miAbmAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmAlumnoActionPerformed
+        formNuevoAlumno na = new formNuevoAlumno();
+        na.setLocationRelativeTo(this);
+        na.setVisible(true);
+    }//GEN-LAST:event_miAbmAlumnoActionPerformed
+
+    private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
+        
+    }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);
@@ -723,19 +773,20 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         lstBusquedaRapida.clearSelection();
         lblEstado.setForeground(Color.black);
         lblDeuda.setForeground(Color.black);
-
+        txtBuscar.setText("");
     }
 
     private void limpiarTabla() {
-
+        ArrayList<Inscripcion> listaVacia = new ArrayList<>();
+        InscripcionesTableModel itm = new InscripcionesTableModel(listaVacia);
+        tblInscripcion.setModel(itm);
     }
 
     //Metodo para habilitar las opciones a las cuales pueden acceder los empleados
     public void habilitarEmpleado(Boolean x) {
         miAbmAlumno.setEnabled(x);
-        miAbmClases.setEnabled(x);
+       
         miAbmInscripciones.setEnabled(x);
-
         miAbmReservas.setEnabled(x);
         miIniciar.setEnabled(!x);
         miCerrar.setEnabled(x);
@@ -753,6 +804,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformDeudor.setEnabled(x);
         miInformPago.setEnabled(x);
         txtBuscar.setEnabled(x);
+        btnReservaNueva.setEnabled(x);
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");
@@ -782,9 +834,9 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformDeudor.setEnabled(x);
         miInformPago.setEnabled(x);
         miAbmEmpleados.setEnabled(x);
-        miAbmPromociones.setEnabled(x);
-        miAbmHorarios.setEnabled(x);
+        miAbmPromociones.setEnabled(x);        
         txtBuscar.setEnabled(x);
+        btnReservaNueva.setEnabled(x);
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");
@@ -853,7 +905,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnNuevaReserva;
     private javax.swing.JButton btnNuevoAlumno;
     private javax.swing.JButton btnNuevoPago;
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnReservaNueva;
+    private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnVerAsistencia;
     private javax.swing.JMenu itmAbmAlumno;
     private javax.swing.JMenu itmIniciar;
@@ -874,7 +927,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JMenuItem jmiMenuAsistencias;
     private javax.swing.JLabel lblDeuda;
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblIdSesion;
@@ -885,7 +937,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miAbmAlumno;
     private javax.swing.JMenuItem miAbmClases;
     private javax.swing.JMenuItem miAbmEmpleados;
-    private javax.swing.JMenuItem miAbmHorarios;
     private javax.swing.JMenuItem miAbmInscripciones;
     private javax.swing.JMenuItem miAbmPromociones;
     private javax.swing.JMenuItem miAbmReservas;

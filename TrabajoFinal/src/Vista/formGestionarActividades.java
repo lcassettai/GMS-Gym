@@ -7,7 +7,6 @@ package Vista;
 
 import Controlador.ControladorActividades;
 import Modelo.Actividad;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -19,16 +18,15 @@ public class formGestionarActividades extends javax.swing.JFrame {
 
     int nuevo;
     ArrayList<Actividad> lista;
-    
+
     public formGestionarActividades() {
-        initComponents();
-        this.setResizable(false);
+        initComponents();        
         cargarActividades();
-        nuevo = 0;      
+        nuevo = 0;
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
     }
 
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -130,6 +128,9 @@ public class formGestionarActividades extends javax.swing.JFrame {
         lstActividades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstActividadesMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lstActividadesMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(lstActividades);
@@ -287,7 +288,7 @@ public class formGestionarActividades extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         habilitar(false);
-        borrar();        
+        borrar();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -295,33 +296,30 @@ public class formGestionarActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if(lstActividades.getSelectedIndex() >= 0){
+        if (lstActividades.getSelectedIndex() >= 0) {
             nuevo = 2;
             habilitar(true);
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(this, "Seleccione una actividad de la lista para editar");
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una actividad de la lista para editar","Editar Actividad",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if(validar()){
+        if (validar()) {
             Actividad a = new Actividad();
             a.setActividad(txtActividad.getText());
             a.setCantDias(Integer.parseInt(txtCantDias.getText()));
             a.setPrecio(Float.parseFloat(txtPrecio.getText()));
-            a.setTipoActividad(cboTipoActividad.getSelectedIndex()+1);
+            a.setTipoActividad(cboTipoActividad.getSelectedIndex() + 1);
             ControladorActividades ca = new ControladorActividades();
-            if(nuevo == 1){                
+            if (nuevo == 1) {
                 ca.agregarActividad(a);
-                JOptionPane.showMessageDialog(this, "Se agrego la actividad con exito!");
-            }
-            else{
-                if(nuevo == 2){
+                JOptionPane.showMessageDialog(this, "Se agrego la actividad con exito!","Nueva Actividad",JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                if (nuevo == 2) {
                     a.setIdActividad(Integer.parseInt(lblCodigo.getText()));
                     ca.actualizarActividad(a);
-                    JOptionPane.showMessageDialog(this, "Se actualizo la actividad con exito!");
+                    JOptionPane.showMessageDialog(this, "Se actualizo la actividad con exito!","Editar Actividad",JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             nuevo = 0;
@@ -332,76 +330,104 @@ public class formGestionarActividades extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void lstActividadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstActividadesMouseClicked
-       cargarCampos(lstActividades.getSelectedIndex());
+
     }//GEN-LAST:event_lstActividadesMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       if(lstActividades.getSelectedIndex()>-1){
-        int i = Integer.parseInt(lblCodigo.getText());
-        ControladorActividades ca = new ControladorActividades();
-        ca.borrar(i);
-        JOptionPane.showMessageDialog(this, "Se elimino la actividad correctamente");
-        actualizarLista();
-        borrar();
-       }
-       else{
-           JOptionPane.showMessageDialog(this, "Seleccione la actividad a eliminar");
-       }
+        if (lstActividades.getSelectedIndex() > -1) {
+            int i = Integer.parseInt(lblCodigo.getText());
+            ControladorActividades ca = new ControladorActividades();
+            ca.borrar(i);
+            JOptionPane.showMessageDialog(this, "Se elimino la actividad correctamente","Eliminar Actividad",JOptionPane.INFORMATION_MESSAGE            );
+            actualizarLista();
+            borrar();
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione la actividad a eliminar","Eliminar Actividad",JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private boolean validar(){
-         
-        try{
-            
-            if(txtActividad.getText().isEmpty()){
+    private void lstActividadesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstActividadesMousePressed
+        try {
+            cargarCampos(lstActividades.getSelectedIndex());
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(this, "No puede seleccionar elementos mientras esta editando","Error",JOptionPane.WARNING_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_lstActividadesMousePressed
+
+    private boolean validar() {
+
+        try {
+
+            if (txtActividad.getText().isEmpty()) {
                 throw new Exception("Ingrese el nombre de la actividad");
             }
-            if(txtCantDias.getText().isEmpty()){
-                throw new Exception("Ingrese la cantidad de dias");
-            }
-            if(txtPrecio.getText().isEmpty()){
+
+            if (txtPrecio.getText().isEmpty()) {
                 throw new Exception("Ingrese el precio de la actividad");
             }
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, e.getMessage());
+
+            if (!isFloat(txtPrecio.getText())) {
+                throw new Exception("El precio debe ser un numerico");
+            }
+
+            float auxPrecio = Float.parseFloat(txtPrecio.getText());
+
+            if (auxPrecio > 9999 || auxPrecio <= 0) {
+                throw new Exception("El precio debe ser mayor a 0 y menor a 9999");
+            }
+
+            if (txtCantDias.getText().isEmpty()) {
+                throw new Exception("Ingrese la cantidad de dias");
+            }
+
+            if (!isInteger(txtCantDias.getText())) {
+                throw new Exception("La cantidad de dias debe ser numerico");
+            }
+
+            int cDias = Integer.parseInt(txtCantDias.getText());
+
+            if (cDias > 30 || cDias <= 0) {
+                throw new Exception("La cantidad de dias debe ser menor a 30 y mayor a 0");
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
-    
-    public void cargarActividades(){
-        ControladorActividades ca = new ControladorActividades();      
-        
-       
+
+    public void cargarActividades() {
+        ControladorActividades ca = new ControladorActividades();
+
         ArrayList<String> tipos = ca.tipoActividades();
         for (String tipo : tipos) {
             cboTipoActividad.addItem(tipo);
         }
-        
+              
         actualizarLista();
-       
+
     }
-    
-    public void actualizarLista(){
+
+    public void actualizarLista() {
         ControladorActividades ca = new ControladorActividades();
         lista = ca.buscarActividades();
         lstActividades.setListData(lista.toArray());
     }
-    
-    public void cargarCampos(int i){
-       
+
+    public void cargarCampos(int i) {
+
         Actividad ls = lista.get(i);
-        
+
         txtActividad.setText(ls.getActividad());
         txtCantDias.setText(String.valueOf(ls.getCantDias()));
         txtPrecio.setText(String.valueOf(ls.getPrecio()));
-        cboTipoActividad.setSelectedIndex(ls.getTipoActividad()-1);
+        cboTipoActividad.setSelectedIndex(ls.getTipoActividad() - 1);
         lblCodigo.setText(String.valueOf(ls.getIdActividad()));
     }
-    
-    
-    public void borrar(){
+
+    public void borrar() {
         txtActividad.setText("");
         txtCantDias.setText("");
         txtPrecio.setText("");
@@ -409,8 +435,8 @@ public class formGestionarActividades extends javax.swing.JFrame {
         lstActividades.clearSelection();
         lblCodigo.setText("-");
     }
-    
-    public void habilitar(boolean x){
+
+    public void habilitar(boolean x) {
         txtActividad.setEnabled(x);
         txtCantDias.setEnabled(x);
         txtPrecio.setEnabled(x);
@@ -420,9 +446,27 @@ public class formGestionarActividades extends javax.swing.JFrame {
         btnEliminar.setEnabled(!x);
         btnCancelar.setEnabled(x);
         btnGuardar.setEnabled(x);
+        lstActividades.setEnabled(!x);
     }
-    
-    
+
+    private static boolean isFloat(String cadena) {
+        try {
+            Float.parseFloat(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
+    private static boolean isInteger(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

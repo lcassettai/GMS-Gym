@@ -18,7 +18,7 @@ public class ReporteTotalTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 9;
+        return 8;
     }
 
     @Override
@@ -26,22 +26,20 @@ public class ReporteTotalTableModel extends AbstractTableModel {
         ReporteTotalPagos rtp = listaPagos.get(i);
         switch (i1) {
             case 0:
-                return rtp.getNroCuota();
+                return rtp.getTipoPago();
             case 1:
                 return rtp.getAlumno();
             case 2:
-                return rtp.getActividad();
-            case 3:
                 return rtp.getMonto();
-            case 4:
-                return rtp.getPromocion();
-            case 5:
+            case 3:
                 return rtp.getDescuento();
+            case 4:
+                return rtp.getMontoEntregado();
+            case 5:
+                return rtp.getEmpleado();            
             case 6:
-                return rtp.getEmpleado();
-            case 7:
                 return rtp.getFecha();
-            case 8:
+            case 7:
                 return rtp.getHora();
         }
         return null;
@@ -51,23 +49,21 @@ public class ReporteTotalTableModel extends AbstractTableModel {
     public String getColumnName(int i) {
         switch (i) {
             case 0:
-                return "nroCuota";
+                return "Tipo de Pago";
             case 1:
                 return "Alumno";
             case 2:
-                return "Actividad";
+                return "Monto Total";
             case 3:
-                return "Monto";
+                return "Descuento Total";
             case 4:
-                return "Promocion";
+                return "Monto Entregado";
             case 5:
-                return "Descuento";
-            case 6:
                 return "Empleado";
-            case 7:
+            case 6:
                 return "Fecha";
-            case 8:
-                return "Hora";
+            case 7:
+                return "Hora";        
         }
         return null;
     }

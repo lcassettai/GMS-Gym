@@ -1,10 +1,9 @@
-
 package Modelo;
 
 import java.sql.Timestamp;
 
-
 public class Inscripcion {
+
     private int idInscripcion;
     private Timestamp fechaIn;
     private Timestamp fechaFin;
@@ -13,6 +12,9 @@ public class Inscripcion {
     private int codAlumno;
     private String actividad;
     private Boolean habilitado;
+    private String tipoActividad;
+    //Total de dias a la semana que tiene
+    private int cantDias;
 
     public Inscripcion(int idInscripcion, Timestamp fechaIn, Timestamp fechaFin, int diasVencimiento, int idActividad, int codAlumno, String actividad, Boolean habilitado) {
         this.idInscripcion = idInscripcion;
@@ -25,6 +27,23 @@ public class Inscripcion {
         this.habilitado = habilitado;
     }
 
+    public int getCantDias() {
+        return cantDias;
+    }
+
+    public void setCantDias(int cantDias) {
+        this.cantDias = cantDias;
+    }   
+    
+
+    public String getTipoActividad() {
+        return tipoActividad;
+    }
+
+    public void setTipoActividad(String tipoActividad) {
+        this.tipoActividad = tipoActividad;
+    }
+
     public Boolean getHabilitado() {
         return habilitado;
     }
@@ -32,7 +51,6 @@ public class Inscripcion {
     public void setHabilitado(Boolean habilitado) {
         this.habilitado = habilitado;
     }
-    
 
     public String getActividad() {
         return actividad;
@@ -40,7 +58,7 @@ public class Inscripcion {
 
     public void setActividad(String actividad) {
         this.actividad = actividad;
-    }       
+    }
 
     public Inscripcion() {
     }
@@ -92,7 +110,5 @@ public class Inscripcion {
     public void setCodAlumno(int codAlumno) {
         this.codAlumno = codAlumno;
     }
-    
-    
-    
+
 }

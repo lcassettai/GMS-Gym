@@ -173,7 +173,7 @@ public class FormDeudores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-
+       
         if (validarFecha()) {
             DeudorActivo da = new DeudorActivo();
             da.setAlumno(txtApellido.getText());
@@ -200,23 +200,34 @@ public class FormDeudores extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+       limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void limpiar() {
         txtApellido.setText("");
         txtDNI.setText("");
         jdcDesde.setDate(fechaActual);
         jdcHasta.setDate(fechaActual);
         LimpiarJTable();
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    }
 
     private Boolean validarFecha() {
         try {
+
+            if (!txtDNI.getText().isEmpty()) {
+                if (!isNumber(txtDNI.getText())) {
+                    throw new Exception("El dni debe ser de tipo numerico");
+                }
+            }
             if (jdcDesde.getDate() == null) {
-                throw new Exception("El campo desde no puede estar vacio");
+                throw new Exception("Seleccione una fecha desde correcta");
             }
             if (jdcHasta.getDate() == null) {
-                throw new Exception("El campo hasta no puede estar vacio");
+                throw new Exception("Seleccione una fecha hasta correcta");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            LimpiarJTable();
             return false;
         }
         return true;
@@ -226,6 +237,15 @@ public class FormDeudores extends javax.swing.JFrame {
         deudores = new ArrayList<>();
         DeudoresTableModel dtbl = new DeudoresTableModel(deudores);
         tblDeudores.setModel(dtbl);
+    }
+
+    private static boolean isNumber(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     /**

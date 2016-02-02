@@ -12,21 +12,11 @@ import Controlador.ControladorPagos;
 import Modelo.Alumno;
 import Modelo.Empleado;
 import Modelo.Inscripcion;
-import java.awt.JobAttributes;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
-/**
- *
- * @author Home
- */
 public class FormControlAsistencia extends javax.swing.JFrame {
 
     /**
@@ -131,22 +121,41 @@ public class FormControlAsistencia extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void validarAcceso() {
-        String dni = txtDNI.getText();
 
-        if (buscarAlumno(dni)) {
-            controladorAsist.asistenciaAlumno(alumno.getCodCliente());
-            JOptionPane.showMessageDialog(this, "Bienvenido Alumno");
-            alumno = null;
-        } else {
-            if (buscarEmpleado(dni)) {
-                controladorAsist.asistenciaEmpleado(empleado.getCodEmpleado());
-                JOptionPane.showMessageDialog(this, "Bienvenido Empleado");
-                empleado = null;
+        if (validacion()) {
+            String dni = txtDNI.getText();
+
+            if (buscarAlumno(dni)) {
+                controladorAsist.asistenciaAlumno(alumno.getCodCliente());
+                JOptionPane.showMessageDialog(this, "Bienvenido Alumno","Bienvenido",JOptionPane.WARNING_MESSAGE);
+                alumno = null;
             } else {
-                JOptionPane.showMessageDialog(this, "Usted no se encuentra habilitado para ingresar");
+                if (buscarEmpleado(dni)) {
+                    controladorAsist.asistenciaEmpleado(empleado.getCodEmpleado());
+                    JOptionPane.showMessageDialog(this, "Bienvenido Empleado","Bienvenido",JOptionPane.INFORMATION_MESSAGE);
+                    empleado = null;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Usted no se encuentra habilitado para ingresar","Aviso",JOptionPane.WARNING_MESSAGE);
+                }
             }
+            txtDNI.setText("");
         }
-        txtDNI.setText("");
+    }
+
+    private boolean validacion() {
+        try {
+            if (txtDNI.getText().isEmpty()) {
+                throw new Exception("Ingrese su numero de dni");
+            }
+
+            if (!isNumber(txtDNI.getText())) {
+                throw new Exception("El dni debe ser de tipo numerico");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
     }
 
     private boolean buscarAlumno(String dni) {
@@ -185,6 +194,15 @@ public class FormControlAsistencia extends javax.swing.JFrame {
         }
 
         return habilitado;
+    }
+
+    private static boolean isNumber(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     /**

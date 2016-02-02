@@ -3,10 +3,10 @@ package Modelo;
 
 public class ReporteTotalPagos {
     private int nroCuota;
-    private String alumno;
-    private String actividad;
+    private String tipoPago;
+    private float montoEntregado;
+    private String alumno;   
     private float monto;
-    private String promocion;
     private float descuento;
     private String empleado;
     private String fecha;
@@ -14,6 +14,15 @@ public class ReporteTotalPagos {
 
     public ReporteTotalPagos() {
     }
+
+    public String getTipoPago() {
+        return tipoPago;
+    }
+
+    public void setTipoPago(String tipoPago) {
+        this.tipoPago = tipoPago;
+    }
+       
 
     public int getNroCuota() {
         return nroCuota;
@@ -31,13 +40,7 @@ public class ReporteTotalPagos {
         this.alumno = alumno;
     }
 
-    public String getActividad() {
-        return actividad;
-    }
-
-    public void setActividad(String actividad) {
-        this.actividad = actividad;
-    }
+    
 
     public float getMonto() {
         return monto;
@@ -45,15 +48,7 @@ public class ReporteTotalPagos {
 
     public void setMonto(float monto) {
         this.monto = monto;
-    }
-
-    public String getPromocion() {
-        return promocion;
-    }
-
-    public void setPromocion(String promocion) {
-        this.promocion = promocion;
-    }
+    }  
 
     public float getDescuento() {
         return descuento;
@@ -86,6 +81,15 @@ public class ReporteTotalPagos {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+    public float getMontoEntregado() {
+        return montoEntregado;
+    }
+
+    public void setMontoEntregado(float montoEntregado) {
+        this.montoEntregado = montoEntregado;
+    }   
+    
     
     
 }

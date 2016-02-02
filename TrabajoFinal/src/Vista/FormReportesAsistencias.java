@@ -82,10 +82,8 @@ public class FormReportesAsistencias extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblAsistencias.setColumnSelectionAllowed(true);
         tblAsistencias.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblAsistencias);
-        tblAsistencias.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/Search.png"))); // NOI18N
         btnBuscar.setText("Buscar");
@@ -219,8 +217,7 @@ public class FormReportesAsistencias extends javax.swing.JFrame {
             ControladorAsistencias ca = new ControladorAsistencias();
             if (cboRol.getSelectedIndex() == 0) {
                 listaAsistencia = ca.obtenerAsistenciaAlumno(a, fechaIn, fechaFin);
-            }
-            else{
+            } else {
                 listaAsistencia = ca.obtenerAsistenciaEmpleado(a, fechaIn, fechaFin);
             }
             if (listaAsistencia.size() > 0) {
@@ -235,18 +232,25 @@ public class FormReportesAsistencias extends javax.swing.JFrame {
 
     private Boolean validarFecha() {
         try {
+            if (!txtDni.getText().isEmpty()) {
+                if (!isNumber(txtDni.getText())) {
+                    throw new Exception("El dni debe ser de tipo numerico");
+                }
+            }
+
             if (jdcFechaDesde.getDate() == null) {
-                throw new Exception("El campo desde no puede estar vacio");
+                throw new Exception("Seleccione una fecha desde correcta");
             }
             if (jdcFechaHasta.getDate() == null) {
-                throw new Exception("El campo hasta no puede estar vacio");
+                throw new Exception("Seleccione una fecha hasta correcta");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
+
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         jdcFechaDesde.setDate(fechaActual);
@@ -261,6 +265,15 @@ public class FormReportesAsistencias extends javax.swing.JFrame {
         listaAsistencia = new ArrayList<>();
         atbl = new AsistenciasTableModel(listaAsistencia);
         tblAsistencias.setModel(atbl);
+    }
+
+    private static boolean isNumber(String cadena) {
+        try {
+            Integer.parseInt(cadena);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 
     /**
