@@ -140,4 +140,34 @@ public class ControladorClases {
             desconectar();
         }
     }
+    
+       public ArrayList<Clase> obtenerClases(int tipoActividad,int idDia){
+        ArrayList<Clase> listaClases = new ArrayList<>();
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec buscarClases "+tipoActividad+","+idDia;
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                Clase c = new Clase();
+                c.setIdClase(rs.getInt(1));
+                c.setActividad(rs.getString(2));
+                c.setDia(rs.getString(4));
+                c.setEmpleado(rs.getString(5));
+                c.setHoraInicio(rs.getString(6));
+                c.setCupo(rs.getInt(7));                
+                
+                listaClases.add(c);
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo obtener las clases, motivo : " + e.getMessage());
+        }
+        finally{
+            desconectar();
+        }
+        return listaClases;
+    }
+    
 }

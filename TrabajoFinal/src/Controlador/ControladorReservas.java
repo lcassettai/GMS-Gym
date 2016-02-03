@@ -45,10 +45,12 @@ public class ControladorReservas {
             String sql = "exec obtenerActividadInscripto " + codAlumno;
             ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
-                Actividad a = new Actividad();
-                a.setActividad(rs.getString(1));
-                a.setTipoActividad(rs.getInt(2));
-                listaActividades.add(a);
+               
+                    Actividad a = new Actividad();
+                    a.setActividad(rs.getString(1));
+                    a.setTipoActividad(rs.getInt(2));
+                    listaActividades.add(a);
+               
             }
             rs.close();
             st.close();
@@ -232,7 +234,7 @@ public class ControladorReservas {
                 if (rs.getInt(1) > 0) {
                     existe = true;
                 }
-            }else{
+            } else {
                 existe = true;
             }
             rs.close();
@@ -244,6 +246,27 @@ public class ControladorReservas {
             desconectar();
         }
         return existe;
+    }
+
+    public int obtenerNumeroInscriptos(int codClase) {
+        int inscriptos = 0;
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "   select count(*) from reservas where habilitado = 'true' AND codClase = " + codClase;
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                inscriptos = rs.getInt(1);
+            }
+            rs.close();
+            st.close();
+
+        } catch (Exception e) {
+            System.out.println("No se puede verificar el numero de inscriptos,motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+        return inscriptos;
     }
 
 }

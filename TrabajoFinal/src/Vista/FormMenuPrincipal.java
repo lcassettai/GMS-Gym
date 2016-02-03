@@ -76,6 +76,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformPago = new javax.swing.JMenuItem();
         miInformAsistencia = new javax.swing.JMenuItem();
         miInformDeudor = new javax.swing.JMenuItem();
+        clasesActivas = new javax.swing.JMenuItem();
         miAyuda = new javax.swing.JMenu();
         miSalir = new javax.swing.JMenu();
 
@@ -478,6 +479,14 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu5.add(miInformDeudor);
 
+        clasesActivas.setText("Clases Disponibles");
+        clasesActivas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clasesActivasActionPerformed(evt);
+            }
+        });
+        jMenu5.add(clasesActivas);
+
         jMenuBar1.add(jMenu5);
 
         miAyuda.setText("Control de Asistencias");
@@ -756,6 +765,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
+    private void clasesActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasesActivasActionPerformed
+        FormClasesActivas fca = new FormClasesActivas();
+        fca.setVisible(true);       
+    }//GEN-LAST:event_clasesActivasActionPerformed
+
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (resp == JOptionPane.YES_OPTION) {
@@ -809,6 +823,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformPago.setEnabled(x);
         txtBuscar.setEnabled(x);
         btnReservaNueva.setEnabled(x);
+        clasesActivas.setEnabled(x);
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");
@@ -841,6 +856,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miAbmPromociones.setEnabled(x);
         txtBuscar.setEnabled(x);
         btnReservaNueva.setEnabled(x);
+        clasesActivas.setEnabled(x);
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");
@@ -912,6 +928,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnReservaNueva;
     private javax.swing.JButton btnSalir1;
     private javax.swing.JButton btnVerAsistencia;
+    private javax.swing.JMenuItem clasesActivas;
     private javax.swing.JMenu itmAbmAlumno;
     private javax.swing.JMenu itmIniciar;
     private javax.swing.JLabel jLabel10;

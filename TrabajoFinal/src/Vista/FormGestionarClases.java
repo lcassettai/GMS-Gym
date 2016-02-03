@@ -307,7 +307,7 @@ public class FormGestionarClases extends javax.swing.JFrame {
         if (codClaseSeleccionada > -1 && tblClase.getSelectedRow() > -1) {
             ControladorClases cc = new ControladorClases();
             cc.eliminarClase(codClaseSeleccionada);
-            actualizarTabla();            
+            actualizarTabla();
             codClaseSeleccionada = -1;
             tblClase.clearSelection();
             borrar();
@@ -320,7 +320,7 @@ public class FormGestionarClases extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (validacion()) {
             Clase clase = new Clase();
-            clase.setIdACtividad(cboTipoActividad.getSelectedIndex() + 1);
+            clase.setIdACtividad(cboTipoActividad.getSelectedIndex() + 2);
             clase.setCupo(Integer.parseInt(txtCupo.getText()));
 
             //formateo el date para que solo obtenga la hora 
@@ -330,8 +330,8 @@ public class FormGestionarClases extends javax.swing.JFrame {
 
             clase.setHoraInicio(hIni);
             clase.setHoraFin(hFin);
-            
-            clase.setIdDia(cboDia.getSelectedIndex() +1);
+
+            clase.setIdDia(cboDia.getSelectedIndex() + 1);
             /* Obtiene el profesor seleccionado en el combo box
              y lo relaciona con el arrayList que contiene los profesores para obtener el id
              */
@@ -393,7 +393,7 @@ public class FormGestionarClases extends javax.swing.JFrame {
                 }
                 txtCupo.setText(String.valueOf(c.getCupo()));
                 cboTipoActividad.setSelectedIndex(c.getIdACtividad() - 1);
-                cboDia.setSelectedIndex(c.getIdDia()-1);
+                cboDia.setSelectedIndex(c.getIdDia() - 1);
                 for (int j = 0; j < listaProfesores.size(); j++) {
                     if (listaProfesores.get(j).getCodEmpleado() == c.getIdEmpleado()) {
                         cboProfesores.setSelectedIndex(j);
@@ -431,7 +431,9 @@ public class FormGestionarClases extends javax.swing.JFrame {
 
         ArrayList<String> tipos = ca.tipoActividades();
         for (String tipo : tipos) {
-            cboTipoActividad.addItem(tipo);
+            if (!tipo.equals("Musculacion")) {
+                cboTipoActividad.addItem(tipo);
+            }
         }
     }
 

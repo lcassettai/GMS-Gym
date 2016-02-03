@@ -7,15 +7,34 @@ public class Clase {
     private String actividad;
     private String horaInicio;
     private String horaFin;
+    private String dia;
     private int idEmpleado;
     private String empleado;
     private int cupo;
     private boolean habilitada;
     private int idDia;
+    private int inscriptos;
 
     public Clase() {
     }
 
+    public int getInscriptos() {
+        return inscriptos;
+    }
+
+    public void setInscriptos(int inscriptos) {
+        this.inscriptos = inscriptos;
+    }
+
+    public String getDia() {
+        return dia;
+    }
+
+    public void setDia(String dia) {
+        this.dia = dia;
+    }
+    
+           
     public int getIdDia() {
         return idDia;
     }
