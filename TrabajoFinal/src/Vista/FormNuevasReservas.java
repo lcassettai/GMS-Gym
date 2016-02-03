@@ -300,15 +300,31 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         int idActividad = obtenerActividadSeleccionada();
         int idEmpleado = obtenerProfesorSeleccionado();
         int idDia = obtenerDiaSeleccionado();
+        
+        cboHorario.setEnabled(true);
+        
+        ControladorReservas cr = new ControladorReservas();
 
         cboHorario.removeAllItems();
 
-        ControladorReservas cr = new ControladorReservas();
         listaHorario = cr.obtenerHorarioDisponible(idActividad, idEmpleado, idDia);
 
-        for (int i = 0; i < listaHorario.size(); i++) {
-            cboHorario.addItem(listaHorario.get(i).getHoraInicio() + " - " + listaHorario.get(i).getHoraFin());
+        int codClase = 0;
+        
+        for (int i = 0; i < listaHorario.size(); i++) {      
+          String horario =   listaHorario.get(i).getHoraInicio() + " - " + listaHorario.get(i).getHoraFin();
+          cboHorario.addItem(horario); 
+          codClase = obtenerClaseSeleccionada(horario);
+          if(!cr.verificarCupoReservas(codClase)){
+              cboHorario.removeItemAt(i);
+          }                
         }
+
+        if(cboHorario.getSelectedIndex() < 0){
+            cboHorario.addItem("No hay cupo");
+            cboHorario.setEnabled(false);
+        }
+
     }//GEN-LAST:event_cboDiaItemStateChanged
 
     private void cboProfesorItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboProfesorItemStateChanged
@@ -356,17 +372,16 @@ public class FormNuevasReservas extends javax.swing.JFrame {
                     int diaVenc = listaInscripciones.get(i).getCantDias();
                     if (diaVenc > 0) {
                         idInscripcion = listaInscripciones.get(i).getIdInscripcion();
-                       
+
                         if (verificarListaReserva(idInscripcion, idClase)) {
-                             ControladorReservas cr = new ControladorReservas();
+                            ControladorReservas cr = new ControladorReservas();
                             if (cr.verificarReservaAlumno(idInscripcion, idClase, alumno.getCodCliente())) {
                                 listaInscripciones.get(i).setCantDias(diaVenc - 1);
                                 modelo.addRow(new Object[]{profesor, acti, dia, horario});
                                 Reservas r = new Reservas(idInscripcion, idClase);
                                 listaReservas.add(r);
-                            }
-                            else{
-                                  JOptionPane.showMessageDialog(this, "El alumno ya se encuentra inscripto en esa clase", "Agregar Clase", JOptionPane.INFORMATION_MESSAGE);
+                            } else {
+                                JOptionPane.showMessageDialog(this, "El alumno ya se encuentra inscripto en esa clase", "Agregar Clase", JOptionPane.INFORMATION_MESSAGE);
                             }
                         } else {
                             JOptionPane.showMessageDialog(this, "No puede agregar dos veces la misma clase", "Agregar Clase", JOptionPane.INFORMATION_MESSAGE);
@@ -404,6 +419,9 @@ public class FormNuevasReservas extends javax.swing.JFrame {
     private boolean validar() {
         try {
 
+            if (cboHorario.getSelectedItem().equals("No hay cupo")) {
+                throw new Exception("No hay cupo para esa fecha");
+            }            
             if (cboProfesor.getSelectedItem().equals("No hay profesores")) {
                 throw new Exception("No hay profesores disponibles");
             }
@@ -446,6 +464,8 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         }
         return -1;
     }
+    
+    
 
     private int obtenerClaseSeleccionada() {
         ControladorReservas cr = new ControladorReservas();
@@ -453,6 +473,17 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         int idEmpleado = obtenerProfesorSeleccionado();
         int idDia = obtenerDiaSeleccionado();
         String horario = (String) cboHorario.getSelectedItem();
+
+        int idClase = cr.obtenerClaseSeleccionada(idActividad, idEmpleado, idDia, horario);
+
+        return idClase;
+    }
+    
+        private int obtenerClaseSeleccionada(String horario) {
+        ControladorReservas cr = new ControladorReservas();
+        int idActividad = obtenerActividadSeleccionada();
+        int idEmpleado = obtenerProfesorSeleccionado();
+        int idDia = obtenerDiaSeleccionado();       
 
         int idClase = cr.obtenerClaseSeleccionada(idActividad, idEmpleado, idDia, horario);
 

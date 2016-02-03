@@ -186,35 +186,60 @@ public class ControladorReservas {
         return idClaseSeleccionada;
     }
 
-    public void agregarNuevaReserva(int idInscripcion,int codClase,int codCliente) {        
+    public void agregarNuevaReserva(int idInscripcion, int codClase, int codCliente) {
         try {
             conectar();
             Statement st = conexion.createStatement();
-            String sql = "exec nuevaReserva "+ idInscripcion + ","+ codClase +","+codCliente;
-            st.executeUpdate(sql);        
+            String sql = "exec nuevaReserva " + idInscripcion + "," + codClase + "," + codCliente;
+            st.executeUpdate(sql);
             st.close();
         } catch (Exception e) {
             System.out.println("No se pudo insertar la inscripcion motivo : " + e.getMessage());
         } finally {
             desconectar();
-        }        
+        }
     }
-    
-      public boolean verificarReservaAlumno(int idInscripcion,int codClase,int codCliente) {
+
+    public boolean verificarReservaAlumno(int idInscripcion, int codClase, int codCliente) {
         boolean existe = true;
         try {
             conectar();
             Statement st = conexion.createStatement();
             String sql = "exec verificarReservaAlumno " + idInscripcion + "," + codClase + "," + codCliente;
             ResultSet rs = st.executeQuery(sql);
-            if(rs.next()){
+            if (rs.next()) {
                 existe = false;
             }
             rs.close();
             st.close();
 
         } catch (Exception e) {
-            System.out.println("No se verificar las reservas, motivo : " + e.getMessage());
+            System.out.println("No se puede verificar las reservas, motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+        return existe;
+    }
+
+    public boolean verificarCupoReservas(int codClase) {
+        boolean existe = false;
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec verificarCupoClases " + codClase;
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                if (rs.getInt(1) > 0) {
+                    existe = true;
+                }
+            }else{
+                existe = true;
+            }
+            rs.close();
+            st.close();
+
+        } catch (Exception e) {
+            System.out.println("No se puede verificar el cupo,motivo : " + e.getMessage());
         } finally {
             desconectar();
         }

@@ -15,7 +15,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
     Usuario login;
     ArrayList<Alumno> listaAlumnos = new ArrayList<>();
-   
+
     public FormMenuPrincipal() {
         initComponents();
         login = new Usuario();
@@ -169,9 +169,9 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                     .addComponent(btnNuevoPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btnVerAsistencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnNuevaReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnReservaNueva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSalir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnSalir1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuevaReserva, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -182,14 +182,14 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnNuevoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnNuevaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReservaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVerAsistencia, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReservaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnNuevaReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(btnSalir1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -577,10 +577,14 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     private void btnReservaNuevaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservaNuevaActionPerformed
         int i = lstBusquedaRapida.getSelectedIndex();
         if (i > -1) {
-            Alumno a = listaAlumnos.get(i);
-            FormNuevasReservas fnr = new FormNuevasReservas();
-            fnr.setAlumno(a);           
-            fnr.setVisible(true);
+            if (tblInscripcion.getRowCount() > 0) {
+                Alumno a = listaAlumnos.get(i);
+                FormNuevasReservas fnr = new FormNuevasReservas();
+                fnr.setAlumno(a);
+                fnr.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(this, "El alumno tiene ninguna pago registrado!","Nueva Reserva",JOptionPane.WARNING_MESSAGE);
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno!");
         }
@@ -610,23 +614,23 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         habilitarAdministrador(false);
         borrar();
         limpiarTabla();
-        ArrayList vacio = new ArrayList();           
+        ArrayList vacio = new ArrayList();
         lstBusquedaRapida.setListData(vacio.toArray());
     }//GEN-LAST:event_miCerrarActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-          if (login.getTipoEmpleado() != 0) {
+        if (login.getTipoEmpleado() != 0) {
             if (login.getTipoEmpleado() == 3) {
                 habilitarAdministrador(true);
-                lblIdSesion.setText(login.getUsuario() + "(Administrador)");               
+                lblIdSesion.setText(login.getUsuario() + "(Administrador)");
             } else {
                 habilitarEmpleado(true);
-                lblIdSesion.setText(login.getUsuario());             
+                lblIdSesion.setText(login.getUsuario());
             }
             borrar();
             limpiarTabla();
             actualizarAlumnos();
-        }      
+        }
 
     }//GEN-LAST:event_formWindowActivated
 
@@ -673,7 +677,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoPagoActionPerformed
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
-   
+
         if (lstBusquedaRapida.getSelectedIndex() > -1) {
             Alumno a = listaAlumnos.get(lstBusquedaRapida.getSelectedIndex());
             if (a.verificarDeudas() > 0) {
@@ -683,11 +687,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 fpd.setearDeudorEmpleado(d.getIdDeudor(), login.getIdUsuario(), a.verificarDeudas(), a.getApellido());
                 fpd.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas","Cancelar deuda",JOptionPane.INFORMATION_MESSAGE);
-                
+                JOptionPane.showMessageDialog(this, "El Alumno no tiene deudas", "Cancelar deuda", JOptionPane.INFORMATION_MESSAGE);
+
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno","Cancelar deuda",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un alumno", "Cancelar deuda", JOptionPane.WARNING_MESSAGE);
         }
 
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
@@ -708,7 +712,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miInformAsistenciaActionPerformed
 
     private void miInformDeudorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miInformDeudorActionPerformed
-        FormDeudores fd  = new FormDeudores();
+        FormDeudores fd = new FormDeudores();
         fd.setVisible(true);
     }//GEN-LAST:event_miInformDeudorActionPerformed
 
@@ -718,22 +722,22 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevaReservaActionPerformed
 
     private void lstBusquedaRapidaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstBusquedaRapidaMousePressed
-        int i = lstBusquedaRapida.getSelectedIndex();       
+        int i = lstBusquedaRapida.getSelectedIndex();
         if (i >= 0) {
             llenarCampos(i);
         }
     }//GEN-LAST:event_lstBusquedaRapidaMousePressed
 
     private void miAyudaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAyudaActionPerformed
-        
+
     }//GEN-LAST:event_miAyudaActionPerformed
 
     private void miAyudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miAyudaMouseClicked
-    
+
     }//GEN-LAST:event_miAyudaMouseClicked
 
     private void miAyudaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_miAyudaMousePressed
-          FormControlAsistencia fca = new FormControlAsistencia();
+        FormControlAsistencia fca = new FormControlAsistencia();
         fca.setVisible(true);
     }//GEN-LAST:event_miAyudaMousePressed
 
@@ -749,7 +753,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miAbmAlumnoActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
-        
+
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void salir() {
@@ -785,7 +789,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     //Metodo para habilitar las opciones a las cuales pueden acceder los empleados
     public void habilitarEmpleado(Boolean x) {
         miAbmAlumno.setEnabled(x);
-       
+
         miAbmInscripciones.setEnabled(x);
         miAbmReservas.setEnabled(x);
         miIniciar.setEnabled(!x);
@@ -834,7 +838,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformDeudor.setEnabled(x);
         miInformPago.setEnabled(x);
         miAbmEmpleados.setEnabled(x);
-        miAbmPromociones.setEnabled(x);        
+        miAbmPromociones.setEnabled(x);
         txtBuscar.setEnabled(x);
         btnReservaNueva.setEnabled(x);
         if (!x) {

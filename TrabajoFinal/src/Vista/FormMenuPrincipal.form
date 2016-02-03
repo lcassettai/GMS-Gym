@@ -278,9 +278,9 @@
                       <Component id="btnNuevoPago" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnBuscarCliente" alignment="0" pref="184" max="32767" attributes="0"/>
                       <Component id="btnVerAsistencia" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnNuevaReserva" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnReservaNueva" alignment="0" max="32767" attributes="0"/>
                       <Component id="btnSalir1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnNuevaReserva" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -294,14 +294,14 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnNuevoPago" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnNuevaReserva" min="-2" pref="48" max="-2" attributes="0"/>
+                  <Component id="btnReservaNueva" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnBuscarCliente" min="-2" pref="53" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnVerAsistencia" min="-2" pref="53" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="btnReservaNueva" min="-2" pref="51" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="btnNuevaReserva" min="-2" pref="48" max="-2" attributes="0"/>
+                  <EmptySpace pref="72" max="32767" attributes="0"/>
                   <Component id="btnSalir1" min="-2" pref="51" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>

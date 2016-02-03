@@ -40,7 +40,6 @@ public class FormGestionarClases extends javax.swing.JFrame {
         habilitar(false);
         nuevo = 0;
         codClaseSeleccionada = -1;
-
     }
 
     /**
