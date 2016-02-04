@@ -421,6 +421,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         miAbmReservas.setText("Reservas");
         miAbmReservas.setEnabled(false);
+        miAbmReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAbmReservasActionPerformed(evt);
+            }
+        });
         itmAbmAlumno.add(miAbmReservas);
 
         miAbmClases.setText("Clases");
@@ -769,6 +774,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         FormClasesActivas fca = new FormClasesActivas();
         fca.setVisible(true);       
     }//GEN-LAST:event_clasesActivasActionPerformed
+
+    private void miAbmReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAbmReservasActionPerformed
+        FormGestionarReservas fgr = new FormGestionarReservas();
+        fgr.setVisible(true);
+    }//GEN-LAST:event_miAbmReservasActionPerformed
 
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);

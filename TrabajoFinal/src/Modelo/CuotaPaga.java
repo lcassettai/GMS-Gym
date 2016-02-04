@@ -9,6 +9,7 @@ public class CuotaPaga {
     private String fecha;
     private String apellidoEmpleado;
     private float montoTotal;
+    private float montoEntregado;
 
     public CuotaPaga(int idPagoCuota, String apellidoAlumno, String nombreAlumno, String dni, String fecha, String apellidoEmpleado, float montoTotal) {
         this.idPagoCuota = idPagoCuota;
@@ -22,8 +23,15 @@ public class CuotaPaga {
 
     public CuotaPaga() {
     }
-    
-    
+
+    public float getMontoEntregado() {
+        return montoEntregado;
+    }
+
+    public void setMontoEntregado(float montoEntregado) {
+        this.montoEntregado = montoEntregado;
+    }
+        
 
     public int getIdPagoCuota() {
         return idPagoCuota;

@@ -31,7 +31,8 @@ public class CuotasPagaTableModel extends AbstractTableModel{
             case 2: return cp.getDni();
             case 3: return cp.getFecha();
             case 4: return cp.getApellidoEmpleado();
-            case 5: return cp.getMontoTotal();        
+            case 5: return cp.getMontoTotal();   
+            case 6: return cp.getMontoEntregado();
          }
         return null;
     }
@@ -45,13 +46,10 @@ public class CuotasPagaTableModel extends AbstractTableModel{
             case 3: return "Fecha";
             case 4: return "Empleado";
             case 5: return "Monto total";
+            case 6: return "Monto entregado";
                   
          }
         return null;
-    }
-    
-    
-    
-    
-    
+    }    
+            
 }

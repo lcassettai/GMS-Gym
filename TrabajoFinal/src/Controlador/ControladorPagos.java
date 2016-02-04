@@ -176,6 +176,7 @@ public class ControladorPagos {
                 cp.setFecha(rs.getString(5));
                 cp.setApellidoEmpleado(rs.getString(6));
                 cp.setMontoTotal(rs.getFloat(7));
+                cp.setMontoEntregado(rs.getFloat(8));
 
                 lista.add(cp);
             }

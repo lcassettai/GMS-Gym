@@ -13,7 +13,7 @@ public class Clase {
     private int cupo;
     private boolean habilitada;
     private int idDia;
-    private int inscriptos;
+    private int inscriptos;    
 
     public Clase() {
     }

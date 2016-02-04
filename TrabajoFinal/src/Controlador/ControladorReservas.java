@@ -5,6 +5,7 @@ import Modelo.Clase;
 import Modelo.Dias;
 import Modelo.Empleado;
 import Modelo.Inscripcion;
+import Modelo.Reservas;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -267,6 +268,54 @@ public class ControladorReservas {
             desconectar();
         }
         return inscriptos;
+    }
+    
+    
+    public ArrayList<Reservas> buscarReservasActivas(String alumno,int actividad,int dia){
+        ArrayList<Reservas> listaReservas = new ArrayList<>();
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec buscarReservasActivarParaCancelar '%"+alumno+"%',"+actividad+","+dia;
+            ResultSet rs  = st.executeQuery(sql);
+            while(rs.next()){
+                Reservas r = new  Reservas();
+                
+                r.setIdReserva(rs.getInt(1));
+                r.setAlumno(rs.getString(2));
+                r.setActividad(rs.getString(3));
+                r.setDia(rs.getString(4));
+                r.setHoraInicio(rs.getString(5));
+                r.setHabilitado(rs.getBoolean(6));
+                
+                listaReservas.add(r);
+            }
+            
+            rs.close();
+            st.close();            
+        } catch (Exception e) {
+            System.out.println("No se pudo obtener las reserva, motivo " + e.getMessage());
+        } 
+        finally{
+            desconectar();
+        }
+        
+        return listaReservas;
+        
+    }
+    
+        public void eliminarReserva(int idReserva) {
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "UPDATE reservas SET habilitado = 'false' WHERE idReserva = " + idReserva;
+            st.executeUpdate(sql);
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo eliminar la reserva, motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }
     }
 
 }

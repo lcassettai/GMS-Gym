@@ -159,7 +159,7 @@ public class ControladorEmpleados {
                     + "'"+em.getTelefono()+"','"+em.getTelefonoAyuda()+"','"+em.getDni()+"',"
                     + "'"+em.getActivo() + "','"+em.getSuplencia()+"','"+em.getComentario()+"',"
                     + "'"+em.getUsuario()+"','"+em.getContraseña()+"',"+em.getTipoEmpleado()+")";
-            st.executeQuery(sql);
+            st.executeUpdate(sql);
             st.close();
         } catch (Exception e) {
             System.out.println("No se pudo cargar el empleado motivo : " + e.getMessage());

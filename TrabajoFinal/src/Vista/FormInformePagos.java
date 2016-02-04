@@ -95,7 +95,7 @@ public class FormInformePagos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Alumno", "DNI", "Fecha", "Empleado", "Monto Total"
+                "ID", "Alumno", "DNI", "Fecha", "Empleado", "Monto Total", "Monto Entregado"
             }
         ));
         tblCuotas.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -377,6 +377,7 @@ public class FormInformePagos extends javax.swing.JFrame {
                 stamper.getAcroFields().setField("txtDni", cp.getDni());
                 stamper.getAcroFields().setField("txtFecha", cp.getFecha());
                 stamper.getAcroFields().setField("txtTotal", String.valueOf(cp.getMontoTotal()));
+                stamper.getAcroFields().setField("txtMontoEntregado", String.valueOf(cp.getMontoEntregado()));
 
                 String ac = "";
                 String precio = "";

@@ -45,6 +45,7 @@ public class FormClasesActivas extends javax.swing.JFrame {
         tblClases = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Clases disponibles");
 
         jLabel1.setText("Actividad :");
 
