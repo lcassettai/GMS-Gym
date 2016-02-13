@@ -13,6 +13,7 @@ public class Inscripcion {
     private String actividad;
     private Boolean habilitado;
     private String tipoActividad;
+    private int idTipoActividad;
     //Total de dias a la semana que tiene
     private int cantDias;
 
@@ -27,6 +28,15 @@ public class Inscripcion {
         this.habilitado = habilitado;
     }
 
+    public int getIdTipoActividad() {
+        return idTipoActividad;
+    }
+
+    public void setIdTipoActividad(int idTipoActividad) {
+        this.idTipoActividad = idTipoActividad;
+    }   
+    
+    
     public int getCantDias() {
         return cantDias;
     }

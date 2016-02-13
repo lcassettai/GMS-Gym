@@ -43,13 +43,17 @@ public class ControladorActividades {
     }
     
    
-    public ArrayList<Actividad> buscarActividades(){
+    public ArrayList<Actividad> buscarActividades(int tipoActividad){
         ArrayList<Actividad> lista= new ArrayList<>();
-        
+        String sql = "";
         try {
             conectar();
             Statement st = conexion.createStatement();
-            String sql = "select idActividad,actividad,precio,cantDias,idTipoActividad from actividades where habilitado = 'true'";
+            if(tipoActividad == 0){
+                  sql = "select idActividad,actividad,precio,cantDias,idTipoActividad from actividades where habilitado = 'true' ";
+            }else{
+                  sql = "select idActividad,actividad,precio,cantDias,idTipoActividad from actividades where habilitado = 'true'  AND idTipoActividad = "+ tipoActividad;
+            }          
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()){
                 Actividad a = new Actividad();

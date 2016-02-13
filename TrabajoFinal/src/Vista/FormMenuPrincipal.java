@@ -62,11 +62,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miCerrar = new javax.swing.JMenuItem();
         itmAbmAlumno = new javax.swing.JMenu();
         miAbmAlumno = new javax.swing.JMenuItem();
+        miAbmReservas = new javax.swing.JMenuItem();
+        miAbmInscripciones = new javax.swing.JMenuItem();
         miAbmEmpleados = new javax.swing.JMenuItem();
         miAbmActividades = new javax.swing.JMenuItem();
         miAbmPromociones = new javax.swing.JMenuItem();
-        miAbmInscripciones = new javax.swing.JMenuItem();
-        miAbmReservas = new javax.swing.JMenuItem();
         miAbmClases = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         miBuscarAlumno = new javax.swing.JMenuItem();
@@ -77,6 +77,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         miInformAsistencia = new javax.swing.JMenuItem();
         miInformDeudor = new javax.swing.JMenuItem();
         clasesActivas = new javax.swing.JMenuItem();
+        GananciasDelAño = new javax.swing.JMenuItem();
         miAyuda = new javax.swing.JMenu();
         miSalir = new javax.swing.JMenu();
 
@@ -388,6 +389,19 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         });
         itmAbmAlumno.add(miAbmAlumno);
 
+        miAbmReservas.setText("Reservas");
+        miAbmReservas.setEnabled(false);
+        miAbmReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAbmReservasActionPerformed(evt);
+            }
+        });
+        itmAbmAlumno.add(miAbmReservas);
+
+        miAbmInscripciones.setText("Inscripciones");
+        miAbmInscripciones.setEnabled(false);
+        itmAbmAlumno.add(miAbmInscripciones);
+
         miAbmEmpleados.setText("Empleados");
         miAbmEmpleados.setEnabled(false);
         miAbmEmpleados.addActionListener(new java.awt.event.ActionListener() {
@@ -414,19 +428,6 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             }
         });
         itmAbmAlumno.add(miAbmPromociones);
-
-        miAbmInscripciones.setText("Inscripciones");
-        miAbmInscripciones.setEnabled(false);
-        itmAbmAlumno.add(miAbmInscripciones);
-
-        miAbmReservas.setText("Reservas");
-        miAbmReservas.setEnabled(false);
-        miAbmReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAbmReservasActionPerformed(evt);
-            }
-        });
-        itmAbmAlumno.add(miAbmReservas);
 
         miAbmClases.setText("Clases");
         miAbmClases.setEnabled(false);
@@ -485,12 +486,22 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         jMenu5.add(miInformDeudor);
 
         clasesActivas.setText("Clases Disponibles");
+        clasesActivas.setEnabled(false);
         clasesActivas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clasesActivasActionPerformed(evt);
             }
         });
         jMenu5.add(clasesActivas);
+
+        GananciasDelAño.setText("Ganancias del año en curso");
+        GananciasDelAño.setEnabled(false);
+        GananciasDelAño.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GananciasDelAñoActionPerformed(evt);
+            }
+        });
+        jMenu5.add(GananciasDelAño);
 
         jMenuBar1.add(jMenu5);
 
@@ -780,6 +791,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         fgr.setVisible(true);
     }//GEN-LAST:event_miAbmReservasActionPerformed
 
+    private void GananciasDelAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GananciasDelAñoActionPerformed
+       FormGrafico fg = new FormGrafico();
+       fg.setVisible(true);
+    }//GEN-LAST:event_GananciasDelAñoActionPerformed
+
     private void salir() {
         int resp = JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?", "Salir", JOptionPane.YES_NO_OPTION);
         if (resp == JOptionPane.YES_OPTION) {
@@ -834,6 +850,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         txtBuscar.setEnabled(x);
         btnReservaNueva.setEnabled(x);
         clasesActivas.setEnabled(x);
+        GananciasDelAño.setEnabled(x);
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");
@@ -867,6 +884,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         txtBuscar.setEnabled(x);
         btnReservaNueva.setEnabled(x);
         clasesActivas.setEnabled(x);
+        GananciasDelAño.setEnabled(x);
+                
         if (!x) {
             login.borrar();
             lblIdSesion.setText("-");
@@ -931,6 +950,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem GananciasDelAño;
     private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton btnNuevaReserva;
     private javax.swing.JButton btnNuevoAlumno;

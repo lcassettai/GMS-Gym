@@ -42,6 +42,21 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAbmAlumnoActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miAbmReservas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Reservas"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAbmReservasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="miAbmInscripciones">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Inscripciones"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miAbmEmpleados">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Empleados"/>
@@ -67,21 +82,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAbmPromocionesActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miAbmInscripciones">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Inscripciones"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miAbmReservas">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Reservas"/>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAbmReservasActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="miAbmClases">
@@ -155,9 +155,19 @@
             <MenuItem class="javax.swing.JMenuItem" name="clasesActivas">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clases Disponibles"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clasesActivasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="GananciasDelA&#xf1;o">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ganancias del a&#xf1;o en curso"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GananciasDelA&#xf1;oActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

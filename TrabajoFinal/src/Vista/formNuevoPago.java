@@ -34,7 +34,7 @@ public class formNuevoPago extends javax.swing.JFrame {
      * Creates new form formNuevoPago
      */
     private ArrayList<Actividad> listaActividades;
-    private ArrayList<Promocion> listaPromociones;
+    private ArrayList<Promocion> listaPromociones;    
     private ArrayList listaPago;
     private DefaultTableModel modelo;
     private float totalAPagar;
@@ -56,7 +56,8 @@ public class formNuevoPago extends javax.swing.JFrame {
         modelo = (DefaultTableModel) tblDetallePago.getModel();
         listaActividades = new ArrayList<>();
         listaPromociones = new ArrayList<>();
-        cargarActividades();
+        obtenerTipoActividades();
+        cargarActividades(cboTipoActividad.getSelectedIndex() + 1);
         cargarPromociones();
         totalAPagar = 0;
         montoEntregado = 0;
@@ -71,6 +72,7 @@ public class formNuevoPago extends javax.swing.JFrame {
         lblApellido.setText(alumno.getApellido());
         lblCodigoAlumno.setText(String.valueOf(alumno.getCodCliente()));
         lblNombre.setText(alumno.getNombre());
+
     }
 
     public void setCodigoEmpleado(int codigo) {
@@ -96,6 +98,8 @@ public class formNuevoPago extends javax.swing.JFrame {
         cboActividades = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         cboPromocion = new javax.swing.JComboBox();
+        cboTipoActividad = new javax.swing.JComboBox();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetallePago = new javax.swing.JTable();
@@ -133,7 +137,26 @@ public class formNuevoPago extends javax.swing.JFrame {
 
         lblNombre.setText("-");
 
+        cboActividades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboActividadesActionPerformed(evt);
+            }
+        });
+
         jLabel8.setText("Promocion :");
+
+        cboTipoActividad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboTipoActividadItemStateChanged(evt);
+            }
+        });
+        cboTipoActividad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboTipoActividadActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("Tipo de Actividaid :");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,20 +174,22 @@ public class formNuevoPago extends javax.swing.JFrame {
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jdcFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jdcFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
                             .addComponent(jdcFechaFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboActividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cboPromocion, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cboPromocion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboActividades, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
+                            .addComponent(jLabel13)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCodigoAlumno)
                             .addComponent(lblApellido)
-                            .addComponent(lblNombre))))
+                            .addComponent(lblNombre)
+                            .addComponent(cboTipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -184,6 +209,10 @@ public class formNuevoPago extends javax.swing.JFrame {
                     .addComponent(lblNombre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(cboTipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cboActividades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -198,7 +227,7 @@ public class formNuevoPago extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cboPromocion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         tblDetallePago.setModel(new javax.swing.table.DefaultTableModel(
@@ -294,8 +323,8 @@ public class formNuevoPago extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -375,7 +404,7 @@ public class formNuevoPago extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -391,68 +420,74 @@ public class formNuevoPago extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         //Obtengo la actividad y la promocion seleccionada
-        
+
         if (validarFecha()) {
             Actividad a = listaActividades.get(cboActividades.getSelectedIndex());
             Promocion p = listaPromociones.get(cboPromocion.getSelectedIndex());
+            boolean validarInscripcion = verificarSiEstaInscripto(a.getTipoActividad(), alumno.getCodCliente());
             float ValidacionDescuento = a.getPrecio() - p.getMonto();
 
             if (ValidacionDescuento > 0) {
-                if (verificarActividadEnTabla(a.getActividad())) {
-                    //obtengo el monto de la actividad
-                    float precioActividad = a.getPrecio();
+                if (validarInscripcion) {
+                    if (verificarActividadEnTabla(a.getTipoActividad())) {
+                        //obtengo el monto de la actividad
+                        float precioActividad = a.getPrecio();
 
-                    montoTotalSinDescuento += precioActividad;
+                        montoTotalSinDescuento += precioActividad;
 
-                    float descuento = p.getMonto();
+                        float descuento = p.getMonto();
 
-                    //el total a pagar es el precio de la actividad menos el descuento de la promocion
-                    totalAPagar += precioActividad - descuento;
+                        //el total a pagar es el precio de la actividad menos el descuento de la promocion
+                        totalAPagar += precioActividad - descuento;
 
-                    montoEntregado = totalAPagar;
+                        montoEntregado = totalAPagar;
 
-                    lblMontoTotal.setText("$ " + String.valueOf(montoTotalSinDescuento));
-                    txtMontoEntregado.setText(String.valueOf(montoEntregado));
+                        lblMontoTotal.setText("$ " + String.valueOf(montoTotalSinDescuento));
+                        txtMontoEntregado.setText(String.valueOf(montoEntregado));
 
-                    actualizarTotal(totalAPagar);
+                        actualizarTotal(totalAPagar);
 
-                    String promo = p.getPromocion();
-                    String act = a.getActividad();
+                        String promo = p.getPromocion();
+                        String act = a.getActividad();
 
-                    float montoDescuento = p.getMonto();
-                    SimpleDateFormat df = new SimpleDateFormat("dd-mm-YYYY");
-                    String fecIn = df.format(jdcFechaInicio.getDate());
-                    String fecFin = df.format(jdcFechaFin.getDate());
+                        float montoDescuento = p.getMonto();
+                        SimpleDateFormat df = new SimpleDateFormat("dd-mm-YYYY");
+                        String fecIn = df.format(jdcFechaInicio.getDate());
+                        String fecFin = df.format(jdcFechaFin.getDate());
 
-                    //Armo un arreglo con los datos del detalle
-                    detallePagoCuota dpc = new detallePagoCuota();
-                    dpc.setMonto(a.getPrecio());
-                    dpc.setIdPromocion(p.getCodigo());
-                    dpc.setIdActividad(a.getIdActividad());
-                    dpc.setMontoDescuento(p.getMonto());
+                        //Armo un arreglo con los datos del detalle
+                        detallePagoCuota dpc = new detallePagoCuota();
+                        dpc.setMonto(a.getPrecio());
+                        dpc.setIdPromocion(p.getCodigo());
+                        dpc.setIdActividad(a.getIdActividad());
+                        dpc.setMontoDescuento(p.getMonto());
 
-                    //Armo un arreglo con los datos para la inscripcion
-                    Inscripcion insc = new Inscripcion();
-                    insc.setCodAlumno(alumno.getCodCliente());
-                    insc.setDiasVencimiento(a.getCantDias());
-                    insc.setIdActividad(a.getIdActividad());
+                        //Armo un arreglo con los datos para la inscripcion
+                        Inscripcion insc = new Inscripcion();
+                        insc.setCodAlumno(alumno.getCodCliente());
+                        insc.setDiasVencimiento(a.getCantDias());
+                        insc.setIdActividad(a.getIdActividad());
+                        insc.setIdTipoActividad(a.getTipoActividad());
 
-                    SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-                    String diaFin = df2.format(jdcFechaFin.getDate());
+                        SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+                        String diaFin = df2.format(jdcFechaFin.getDate());
 
-                    String diaIni = df2.format(jdcFechaInicio.getDate());
+                        String diaIni = df2.format(jdcFechaInicio.getDate());
 
-                    insc.setFechaFin(Timestamp.valueOf(diaFin));
-                    insc.setFechaIn(Timestamp.valueOf(diaIni));
+                        insc.setFechaFin(Timestamp.valueOf(diaFin));
+                        insc.setFechaIn(Timestamp.valueOf(diaIni));
 
-                    //Los agrego a la lista
-                    listaInscripcion.add(insc);
-                    listaDetalle.add(dpc);
+                        //Los agrego a la lista
+                        listaInscripcion.add(insc);
+                        listaDetalle.add(dpc);
 
-                    modelo.addRow(new Object[]{act, fecIn, fecFin, promo, precioActividad, montoDescuento});
-                    lblDescuentoTotal.setText("$ " + String.valueOf(montoTotalSinDescuento - totalAPagar));
+                        modelo.addRow(new Object[]{act, fecIn, fecFin, promo, precioActividad, montoDescuento});
+                        lblDescuentoTotal.setText("$ " + String.valueOf(montoTotalSinDescuento - totalAPagar));
+                    } else {
+                        JOptionPane.showMessageDialog(this, "La actividad ya se encuentra en la lista", "Agregar Actividad", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(this, "La actividad ya se encuentra en la lista", "Agregar Actividad", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "El alumno ya se encuentra inscripto en esa actividad", "Agregar Actividad", JOptionPane.WARNING_MESSAGE);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "El monto del descuento no puede ser mayor al precio de la actividad", "Agregar Actividad", JOptionPane.WARNING_MESSAGE);
@@ -461,13 +496,18 @@ public class formNuevoPago extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private boolean verificarActividadEnTabla(String actividad) {
-        for (int i = 0; i < tblDetallePago.getRowCount(); i++) {
-            if (actividad.equals((String) tblDetallePago.getValueAt(i, 0))) {
+    private boolean verificarActividadEnTabla(int tipoActividad) {
+        for (int i = 0; i < listaInscripcion.size(); i++) {
+            if(listaInscripcion.get(i).getIdTipoActividad() == tipoActividad){
                 return false;
             }
         }
         return true;
+    }
+
+    private boolean verificarSiEstaInscripto(int tipoActividad, int alumno) {
+        ControladorPagos cp = new ControladorPagos();
+        return cp.verificiarInscripcion(tipoActividad, alumno);
     }
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -493,7 +533,7 @@ public class formNuevoPago extends javax.swing.JFrame {
             actualizarTotal(totalAPagar);
             lblDescuentoTotal.setText("$ " + String.valueOf(montoTotalSinDescuento - totalAPagar));
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un elemento para eliminar","Eliminar",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione un elemento para eliminar", "Eliminar", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -518,12 +558,12 @@ public class formNuevoPago extends javax.swing.JFrame {
                         }
                     }
                 } else {
-                    if (JOptionPane.showConfirmDialog(this, "Se va a realizar un pago por : $ " + totalAPagar +"\nDesea continuar?", "Registrar pago", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    if (JOptionPane.showConfirmDialog(this, "Se va a realizar un pago por : $ " + totalAPagar + "\nDesea continuar?", "Registrar pago", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         registrarTodo();
                     }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "El alumno no puede registrar un nuevo pago \n hasta cancelar su deuda de : $ " + alumno.verificarDeudas(),"Deuda",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El alumno no puede registrar un nuevo pago \n hasta cancelar su deuda de : $ " + alumno.verificarDeudas(), "Deuda", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnPagarActionPerformed
@@ -544,7 +584,7 @@ public class formNuevoPago extends javax.swing.JFrame {
         cp.registrarDetallePago(listaDetalle);
         cp.registrarInscripcion(listaInscripcion);
 
-        JOptionPane.showMessageDialog(this, "Se registro el pago con exito!","Pago Registrado",JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Se registro el pago con exito!", "Pago Registrado", JOptionPane.INFORMATION_MESSAGE);
         this.dispose();
     }
 
@@ -561,17 +601,36 @@ public class formNuevoPago extends javax.swing.JFrame {
     }//GEN-LAST:event_tblDetallePagoMousePressed
 
     private void txtMontoEntregadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMontoEntregadoKeyTyped
-          char c=evt.getKeyChar();             
-         
-          if(Character.isLetter(c)) { 
-              getToolkit().beep(); 
-               
-              evt.consume(); 
-               
-             
-               
-          } 
+        char c = evt.getKeyChar();
+
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+
+            evt.consume();
+
+        }
     }//GEN-LAST:event_txtMontoEntregadoKeyTyped
+
+    private void cboTipoActividadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboTipoActividadItemStateChanged
+
+    }//GEN-LAST:event_cboTipoActividadItemStateChanged
+
+    private void cboTipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoActividadActionPerformed
+        cboActividades.removeAllItems();
+        cargarActividades(cboTipoActividad.getSelectedIndex() + 1);     
+        if (cboActividades.getSelectedIndex() < 0) {
+            btnAgregar.setEnabled(false);
+            
+            cboActividades.addItem("No hay actividades");
+        } else {
+            btnAgregar.setEnabled(true);
+            
+        }
+    }//GEN-LAST:event_cboTipoActividadActionPerformed
+
+    private void cboActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActividadesActionPerformed
+       
+    }//GEN-LAST:event_cboActividadesActionPerformed
 
     private boolean validarCampos() {
         boolean bandera = true;
@@ -580,11 +639,11 @@ public class formNuevoPago extends javax.swing.JFrame {
             if (tblDetallePago.getRowCount() <= 0) {
                 throw new Exception("Debe agregar almenos un elemento a la lista para pagar");
             }
-            
-            if(!isFloat(txtMontoEntregado.getText())){
+
+            if (!isFloat(txtMontoEntregado.getText())) {
                 throw new Exception("El monto entregado debe ser de tipo numerico");
-            }     
-            
+            }
+
             if (txtMontoEntregado.getText().isEmpty()) {
                 throw new Exception("Ingrese el monto entregado");
             } else {
@@ -596,11 +655,9 @@ public class formNuevoPago extends javax.swing.JFrame {
             if (txtMonEntregado < 0) {
                 throw new Exception("El monto entregado no puede ser menor a cero ");
             }
-            
-                       
-               
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             bandera = false;
         }
         return bandera;
@@ -620,13 +677,22 @@ public class formNuevoPago extends javax.swing.JFrame {
         }
         return true;
     }
-    
-      private static boolean isFloat(String cadena) {
+
+    private static boolean isFloat(String cadena) {
         try {
             Float.parseFloat(cadena);
             return true;
         } catch (NumberFormatException nfe) {
             return false;
+        }
+    }
+
+    private void obtenerTipoActividades() {
+        ControladorActividades ca = new ControladorActividades();
+
+        ArrayList<String> tipos = ca.tipoActividades();
+        for (String tipo : tipos) {
+            cboTipoActividad.addItem(tipo);
         }
     }
 
@@ -687,9 +753,10 @@ public class formNuevoPago extends javax.swing.JFrame {
 
     }
 
-    private void cargarActividades() {
+    private void cargarActividades(int tipoActividad) {
+        cboActividades.removeAllItems();
         ControladorActividades ca = new ControladorActividades();
-        listaActividades = ca.buscarActividades();
+        listaActividades = ca.buscarActividades(tipoActividad);
         for (Actividad lstA : listaActividades) {
             cboActividades.addItem(lstA.getActividad());
         }
@@ -702,10 +769,12 @@ public class formNuevoPago extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox cboActividades;
     private javax.swing.JComboBox cboPromocion;
+    private javax.swing.JComboBox cboTipoActividad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

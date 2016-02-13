@@ -412,7 +412,7 @@ public class formGestionarActividades extends javax.swing.JFrame {
 
     public void actualizarLista() {
         ControladorActividades ca = new ControladorActividades();
-        lista = ca.buscarActividades();
+        lista = ca.buscarActividades(0);
         lstActividades.setListData(lista.toArray());
     }
 

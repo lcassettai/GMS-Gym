@@ -267,8 +267,8 @@ public class ControladorPagos {
                 ReporteTotalPagos rtp = new ReporteTotalPagos();
                 rtp.setNroCuota(rs.getInt(1));
                 rtp.setTipoPago(rs.getString(2));
-                rtp.setAlumno(rs.getString(3));                
-                rtp.setMonto(rs.getFloat(4));               
+                rtp.setAlumno(rs.getString(3));
+                rtp.setMonto(rs.getFloat(4));
                 rtp.setDescuento(rs.getFloat(5));
                 rtp.setMontoEntregado(rs.getFloat(6));
                 rtp.setEmpleado(rs.getString(7));
@@ -309,5 +309,80 @@ public class ControladorPagos {
         return resultado;
 
     }
+
+    public Float[][] obtenerArregloPagos() {
+        Float[][] pagos = new Float[12][2];
+
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec obtenerTotalPagosAño";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+              for(int i = 0; i < 12 ;i++){
+                  if(i == rs.getFloat(1)-1){
+                      pagos[i][0] = rs.getFloat(1);
+                      pagos[i][1] = rs.getFloat(2);
+                      break;
+                  }
+              }
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo obtener los pagos motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+        return pagos;
+    }
+    
+     public Float[][] obtenerArregloDeudores() {
+        Float[][] deudores = new Float[12][2];
+
+        try {
+            conectar();
+            Statement st = conexion.createStatement();
+            String sql = "exec obtenerDeudoresDelAño";
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+              for(int i = 0; i < 12 ;i++){
+                  if(i == rs.getFloat(1)-1){
+                      deudores[i][0] = rs.getFloat(1);
+                      deudores[i][1] = rs.getFloat(2);
+                      break;
+                  }
+              }
+            }
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            System.out.println("No se pudo obtener los pagos motivo : " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+        return deudores;
+    }
+     
+   public boolean verificiarInscripcion(int tipoActividad,int alumno){
+       boolean bandera = true;
+       try {
+           conectar();
+           Statement st = conexion.createStatement();
+           String sql = "SELECT * FROM inscripciones i INNER JOIN Actividades a ON i.idActividad = a.idActividad WHERE i.habilitado = 'true' AND idTipoActividad = "+tipoActividad+" AND codAlumno = "+alumno;
+           ResultSet rs = st.executeQuery(sql);
+           if(rs.next()){
+               bandera = false;
+           }
+           rs.close();
+           st.close();
+       } catch (Exception e) {
+           System.out.println("No se pudo verificar la inscripcion motivo : " + e.getMessage());
+       }
+       finally{
+           desconectar();
+       }
+       return bandera;
+   }
 
 }
