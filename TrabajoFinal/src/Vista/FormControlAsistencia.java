@@ -12,6 +12,10 @@ import Controlador.ControladorPagos;
 import Modelo.Alumno;
 import Modelo.Empleado;
 import Modelo.Inscripcion;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,9 +23,7 @@ import javax.swing.JOptionPane;
 
 public class FormControlAsistencia extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FomrControlAsistencias
-     */
+    FormMenuPrincipal formMenuPpal;
     Alumno alumno;
     Empleado empleado;
     ControladorAsistencias controladorAsist;
@@ -31,6 +33,40 @@ public class FormControlAsistencia extends javax.swing.JFrame {
 
         this.setLocationRelativeTo(null);
         controladorAsist = new ControladorAsistencias();
+
+        this.getContentPane().setBackground(java.awt.SystemColor.activeCaption);
+        this.addComponentListener(new ComponentListener() {
+            public void componentResized(ComponentEvent e) {
+                centrarPanel();
+            }
+
+            @Override
+            public void componentMoved(ComponentEvent e) {
+              
+            }
+
+            @Override
+            public void componentShown(ComponentEvent e) {
+                
+            }
+
+            @Override
+            public void componentHidden(ComponentEvent e) {
+                
+            }
+        });
+
+    }
+
+    public void setMenuPrincipal(FormMenuPrincipal fmp){
+        this.formMenuPpal = fmp;
+    }
+    
+    public void centrarPanel() {
+        int panelX = (getWidth() - jPanel1.getWidth() - getInsets().left - getInsets().right) / 2;
+        Dimension pantallaTamano = Toolkit.getDefaultToolkit().getScreenSize();
+        int panelY = pantallaTamano.height / 4;
+        jPanel1.setLocation(panelX, panelY);
     }
 
     /**
@@ -42,6 +78,7 @@ public class FormControlAsistencia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtDNI = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -49,12 +86,35 @@ public class FormControlAsistencia extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Control de Asistencias");
+        setBackground(java.awt.SystemColor.activeCaption);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                formKeyTyped(evt);
+            }
+        });
+
+        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
+        jPanel1.setToolTipText("");
+        jPanel1.setMinimumSize(new java.awt.Dimension(388, 847));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         jLabel1.setText("Ingrese su DNI");
 
         txtDNI.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         txtDNI.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDNIFocusLost(evt);
+            }
+        });
         txtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDNIKeyTyped(evt);
@@ -72,38 +132,53 @@ public class FormControlAsistencia extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(328, 328, 328)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(292, 292, 292)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(338, 338, 338)
-                        .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(414, 414, 414)
-                        .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(396, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(46, 46, 46)
+                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(122, 122, 122)
+                            .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(42, 42, 42)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(152, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addGap(43, 43, 43)
                 .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120))
+                .addContainerGap(544, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(536, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -120,6 +195,22 @@ public class FormControlAsistencia extends javax.swing.JFrame {
         validarAcceso();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        centrarPanel();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+
+    }//GEN-LAST:event_formKeyPressed
+
+    private void formKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyTyped
+
+    }//GEN-LAST:event_formKeyTyped
+
+    private void txtDNIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDNIFocusLost
+
+    }//GEN-LAST:event_txtDNIFocusLost
+
     private void validarAcceso() {
 
         if (validacion()) {
@@ -127,15 +218,16 @@ public class FormControlAsistencia extends javax.swing.JFrame {
 
             if (buscarAlumno(dni)) {
                 controladorAsist.asistenciaAlumno(alumno.getCodCliente());
-                JOptionPane.showMessageDialog(this, "Bienvenido Alumno","Bienvenido",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Bienvenido Alumno", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+                formMenuPpal.llenarCampos(dni);
                 alumno = null;
             } else {
                 if (buscarEmpleado(dni)) {
                     controladorAsist.asistenciaEmpleado(empleado.getCodEmpleado());
-                    JOptionPane.showMessageDialog(this, "Bienvenido Empleado","Bienvenido",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Bienvenido Empleado", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
                     empleado = null;
                 } else {
-                    JOptionPane.showMessageDialog(this, "Usted no se encuentra habilitado para ingresar","Aviso",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Usted no se encuentra habilitado para ingresar", "Aviso", JOptionPane.WARNING_MESSAGE);
                 }
             }
             txtDNI.setText("");
@@ -153,6 +245,7 @@ public class FormControlAsistencia extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+            txtDNI.setText("");
             return false;
         }
         return true;
@@ -245,6 +338,7 @@ public class FormControlAsistencia extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtDNI;
     // End of variables declaration//GEN-END:variables
 }

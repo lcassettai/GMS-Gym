@@ -66,6 +66,7 @@ public class FormGestionarPromociones extends javax.swing.JFrame {
 
         jLabel4.setText("Descripcion :");
 
+        lstPromociones.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lstPromociones.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstPromocionesMouseClicked(evt);
