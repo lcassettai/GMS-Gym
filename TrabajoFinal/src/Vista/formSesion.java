@@ -8,6 +8,8 @@ package Vista;
 import Controlador.ControladorSesion;
 import Modelo.Empleado;
 import Modelo.Usuario;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -18,6 +20,7 @@ public class formSesion extends javax.swing.JFrame {
     public formSesion() {
         initComponents();
         this.setResizable(false);
+        this.getContentPane().setBackground(java.awt.SystemColor.activeCaptionBorder);
     }
 
     public void setUsuario(Usuario u) {
@@ -41,9 +44,16 @@ public class formSesion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Iniciar Sesion");
+        setBackground(java.awt.SystemColor.activeCaption);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setIconImage(getIconImage());
 
+        jPanel1.setBackground(java.awt.SystemColor.activeCaptionBorder);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Usuario :");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("Contraseña :");
 
         pswContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -91,6 +101,8 @@ public class formSesion extends javax.swing.JFrame {
                 .addComponent(cboMostrar)
                 .addContainerGap())
         );
+
+        jPanel2.setBackground(java.awt.SystemColor.activeCaptionBorder);
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +183,14 @@ public class formSesion extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cboMostrarActionPerformed
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
+    }
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
@@ -194,22 +214,20 @@ public class formSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_pswContraseñaKeyTyped
 
     private void validarAcceso() {
-        
-        
-        
+
         String usuario = "";
         String contraseña = null;
 
         usuario = txtUsuario.getText();
         contraseña = new String(pswContraseña.getPassword());
-        
-        if(usuario.equals("Admin") && contraseña.equals("admin123")){
+
+        if (usuario.equals("Admin") && contraseña.equals("admin123")) {
             login.setUsuario("Administrador Global");
-            login.setEstado(true);          
+            login.setEstado(true);
             login.setTipoEmpleado(3);
             this.dispose();
         }
-        
+
         ControladorSesion cs = new ControladorSesion();
         Usuario u = cs.buscarUsuario(usuario);
         if (!txtUsuario.getText().isEmpty() && !pswContraseña.getText().isEmpty()) {
@@ -223,23 +241,23 @@ public class formSesion extends javax.swing.JFrame {
                         if (login.getEstado()) {
                             login.setIdUsuario(u.getIdUsuario());
                             login.setTipoEmpleado(u.getTipoEmpleado());
-                            JOptionPane.showMessageDialog(this, "Bienvenido " + login.getUsuario() + "! ","Inicio de Sesion",JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Bienvenido " + login.getUsuario() + "! ", "Inicio de Sesion", JOptionPane.INFORMATION_MESSAGE);
                             this.dispose();
                         } else {
-                            JOptionPane.showMessageDialog(this, "El usuario se encuentra INHABILITADO","Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "El usuario se encuentra INHABILITADO", "Inicio de Sesion", JOptionPane.ERROR_MESSAGE);
                         }
 
                     } else {
-                        JOptionPane.showMessageDialog(this, "La contraseña es incorrecta","Inicio de Sesion",JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "La contraseña es incorrecta", "Inicio de Sesion", JOptionPane.WARNING_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(this, "El usuario no coincide","Inicio de Sesion",JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "El usuario no coincide", "Inicio de Sesion", JOptionPane.WARNING_MESSAGE);
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "No se encontro el usuario","Inicio de Sesion",JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontro el usuario", "Inicio de Sesion", JOptionPane.WARNING_MESSAGE);
             }
-        }else{
-            JOptionPane.showMessageDialog(this,"Debe ingresar un usuario y contraseña","Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un usuario y contraseña", "Inicio de Sesion", JOptionPane.ERROR_MESSAGE);
         }
 
     }

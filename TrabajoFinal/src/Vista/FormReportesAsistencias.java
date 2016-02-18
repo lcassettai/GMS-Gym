@@ -8,6 +8,8 @@ package Vista;
 import Controlador.ControladorAsistencias;
 import Modelo.Asistencia;
 import Modelo.AsistenciasTableModel;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +36,14 @@ public class FormReportesAsistencias extends javax.swing.JFrame {
         jdcFechaHasta.setDate(fechaActual);
         setLocationRelativeTo(null);
         setResizable(false);
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
 
     /**
@@ -65,6 +75,7 @@ public class FormReportesAsistencias extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reportes de Asistencias");
+        setIconImage(getIconImage());
 
         tblAsistencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -245,7 +256,7 @@ public class FormReportesAsistencias extends javax.swing.JFrame {
                 throw new Exception("Seleccione una fecha hasta correcta");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;

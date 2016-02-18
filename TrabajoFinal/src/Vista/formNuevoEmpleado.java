@@ -8,6 +8,8 @@ package Vista;
 import Controlador.ControladorEmpleados;
 import Modelo.Empleado;
 import Modelo.EmpleadosTableModel;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +32,14 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
         grupoSexo.add(rbMasculino);
         nuevo = 0;
         foco();
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
 
     /**
@@ -97,6 +107,7 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestionar Empleados");
+        setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -466,7 +477,7 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        habilitar(true);        
+        habilitar(true);
         borrar();
         cboActivo.setSelected(true);
         tblEmpleados.clearSelection();
@@ -513,7 +524,7 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void tblEmpleadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMouseClicked
-       
+
     }//GEN-LAST:event_tblEmpleadosMouseClicked
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -550,12 +561,12 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
 
             if (nuevo == 1) {
                 ce.cargarNuevoEmpleado(e);
-                JOptionPane.showMessageDialog(this, "Cargo el empleado correctamente!","Nuevo Empleado",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Cargo el empleado correctamente!", "Nuevo Empleado", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (nuevo == 2) {
                     e.setCodEmpleado(Integer.parseInt(lblCodigo.getText()));
                     ce.actualizarEmpleado(e);
-                    JOptionPane.showMessageDialog(this, "Se actualizo el empleado correctamente!","Editar Empleado",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Se actualizo el empleado correctamente!", "Editar Empleado", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             habilitar(false);
@@ -582,14 +593,14 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
                 throw new Exception("Ingrese la fecha de nacimiento");
             }
 
-            if(txtDni.getText().isEmpty()){
-                throw new Exception("Ingrese el DNI del empleado");                
+            if (txtDni.getText().isEmpty()) {
+                throw new Exception("Ingrese el DNI del empleado");
             }
-            
-            if(!isNumeric(txtDni.getText())){
+
+            if (!isNumeric(txtDni.getText())) {
                 throw new Exception("El DNI debe ser de tipo numerico");
             }
-            
+
             if (rbFemenino.isSelected() == false && rbMasculino.isSelected() == false) {
                 throw new Exception("Seleccione un genero");
             }
@@ -614,7 +625,7 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return validar;
@@ -626,20 +637,20 @@ public class formNuevoEmpleado extends javax.swing.JFrame {
             habilitar(true);
             nuevo = 2;
         } else {
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un empleado para poder editarlo","Editar Empleado",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un empleado para poder editarlo", "Editar Empleado", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void tblEmpleadosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpleadosMousePressed
         try {
-            if(!tblEmpleados.isEnabled()){
+            if (!tblEmpleados.isEnabled()) {
                 throw new Exception("");
             }
             int seleccionado = tblEmpleados.getSelectedRow();
             Integer dato = (Integer) tblEmpleados.getValueAt(seleccionado, 0);
             cargarCampos(dato);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada, ya que se estan editando campos","Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La tabla no esta habilitada, ya que se estan editando campos", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_tblEmpleadosMousePressed
 

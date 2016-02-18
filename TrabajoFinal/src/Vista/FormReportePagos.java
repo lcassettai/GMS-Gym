@@ -1,9 +1,10 @@
-
 package Vista;
 
 import Controlador.ControladorPagos;
 import Modelo.ReporteTotalPagos;
 import Modelo.ReporteTotalTableModel;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +29,14 @@ public class FormReportePagos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,6 +53,7 @@ public class FormReportePagos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Historial de pagos");
+        setIconImage(getIconImage());
 
         tblPagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -143,9 +153,8 @@ public class FormReportePagos extends javax.swing.JFrame {
                 ReporteTotalTableModel rtbl = new ReporteTotalTableModel(listaPagos);
                 tblPagos.setModel(rtbl);
 
-                lblTotal.setText("$ "+String.valueOf(obtenerMontoTotal()));
-            }
-            else{
+                lblTotal.setText("$ " + String.valueOf(obtenerMontoTotal()));
+            } else {
                 JOptionPane.showMessageDialog(this, "No se encontraron resultados");
             }
         }
@@ -160,16 +169,16 @@ public class FormReportePagos extends javax.swing.JFrame {
                 throw new Exception("Ingrese una fecha hasta correcta");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
-    
-    private float obtenerMontoTotal(){
+
+    private float obtenerMontoTotal() {
         float total = 0;
         for (int i = 0; i < tblPagos.getRowCount(); i++) {
-           total +=  (Float)tblPagos.getValueAt(i, 4);
+            total += (Float) tblPagos.getValueAt(i, 4);
         }
         return total;
     }

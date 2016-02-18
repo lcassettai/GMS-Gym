@@ -11,6 +11,8 @@ import Modelo.Clase;
 import Modelo.HistorialClasesTableModel;
 import Modelo.Reservas;
 import Modelo.ReservasActivasTableModel;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -41,6 +43,15 @@ public class FormGestionarReservas extends javax.swing.JFrame {
             }
         }
     }
+    
+      @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+
+        return retValue;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -63,6 +74,7 @@ public class FormGestionarReservas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestionar Reservas");
+        setIconImage(getIconImage());
 
         jLabel1.setText("Alumno :");
 

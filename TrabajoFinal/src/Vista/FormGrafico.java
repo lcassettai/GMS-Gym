@@ -1,6 +1,8 @@
 package Vista;
 
 import Controlador.ControladorPagos;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.ButtonGroup;
 import org.jfree.chart.*;
 import org.jfree.chart.plot.CategoryPlot;
@@ -23,6 +25,14 @@ public class FormGrafico extends javax.swing.JFrame {
         this.setResizable(false);
         setVisible(true);
         graficar();
+    }
+    
+      @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
     
     public void graficar() {
@@ -126,6 +136,7 @@ public class FormGrafico extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Grafico de Ganancias");
         setBackground(new java.awt.Color(255, 255, 255));
+        setIconImage(getIconImage());
 
         barras.setBackground(java.awt.Color.white);
 

@@ -7,6 +7,8 @@ package Vista;
 
 import Controlador.ControladorActividades;
 import Modelo.Actividad;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -20,11 +22,19 @@ public class formGestionarActividades extends javax.swing.JFrame {
     ArrayList<Actividad> lista;
 
     public formGestionarActividades() {
-        initComponents();        
+        initComponents();
         cargarActividades();
         nuevo = 0;
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
 
     @SuppressWarnings("unchecked")
@@ -56,6 +66,7 @@ public class formGestionarActividades extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestionar Actividades");
+        setIconImage(getIconImage());
 
         jLabel1.setText("Actividad :");
 
@@ -300,7 +311,7 @@ public class formGestionarActividades extends javax.swing.JFrame {
             nuevo = 2;
             habilitar(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione una actividad de la lista para editar","Editar Actividad",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione una actividad de la lista para editar", "Editar Actividad", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -314,12 +325,12 @@ public class formGestionarActividades extends javax.swing.JFrame {
             ControladorActividades ca = new ControladorActividades();
             if (nuevo == 1) {
                 ca.agregarActividad(a);
-                JOptionPane.showMessageDialog(this, "Se agrego la actividad con exito!","Nueva Actividad",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Se agrego la actividad con exito!", "Nueva Actividad", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 if (nuevo == 2) {
                     a.setIdActividad(Integer.parseInt(lblCodigo.getText()));
                     ca.actualizarActividad(a);
-                    JOptionPane.showMessageDialog(this, "Se actualizo la actividad con exito!","Editar Actividad",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Se actualizo la actividad con exito!", "Editar Actividad", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
             nuevo = 0;
@@ -338,11 +349,11 @@ public class formGestionarActividades extends javax.swing.JFrame {
             int i = Integer.parseInt(lblCodigo.getText());
             ControladorActividades ca = new ControladorActividades();
             ca.borrar(i);
-            JOptionPane.showMessageDialog(this, "Se elimino la actividad correctamente","Eliminar Actividad",JOptionPane.INFORMATION_MESSAGE            );
+            JOptionPane.showMessageDialog(this, "Se elimino la actividad correctamente", "Eliminar Actividad", JOptionPane.INFORMATION_MESSAGE);
             actualizarLista();
             borrar();
         } else {
-            JOptionPane.showMessageDialog(this, "Seleccione la actividad a eliminar","Eliminar Actividad",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Seleccione la actividad a eliminar", "Eliminar Actividad", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -350,9 +361,9 @@ public class formGestionarActividades extends javax.swing.JFrame {
         try {
             cargarCampos(lstActividades.getSelectedIndex());
         } catch (Exception e) {
-             JOptionPane.showMessageDialog(this, "No puede seleccionar elementos mientras esta editando","Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No puede seleccionar elementos mientras esta editando", "Error", JOptionPane.WARNING_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_lstActividadesMousePressed
 
     private boolean validar() {
@@ -392,7 +403,7 @@ public class formGestionarActividades extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(),"Error",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
@@ -405,7 +416,7 @@ public class formGestionarActividades extends javax.swing.JFrame {
         for (String tipo : tipos) {
             cboTipoActividad.addItem(tipo);
         }
-              
+
         actualizarLista();
 
     }

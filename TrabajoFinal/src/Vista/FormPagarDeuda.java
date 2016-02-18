@@ -6,6 +6,8 @@
 package Vista;
 
 import Controlador.ControladorPagos;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +25,14 @@ public class FormPagarDeuda extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
 
     public void setearDeudorEmpleado(int deudor, int codEmpleado, float deuda, String apellido) {
@@ -52,6 +62,7 @@ public class FormPagarDeuda extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cancelar Deuda");
+        setIconImage(getIconImage());
 
         jLabel1.setText("Monto de la deuda :");
 
@@ -179,11 +190,11 @@ public class FormPagarDeuda extends javax.swing.JFrame {
             if (txtMontoEntregado.getText().isEmpty()) {
                 throw new Exception("Ingrese el monto entregado");
             }
-            
-            if(!isNumeric(txtMontoEntregado.getText())){
+
+            if (!isNumeric(txtMontoEntregado.getText())) {
                 throw new Exception("El monto entregado debe ser de tipo numerico");
             }
-            
+
             if (Float.parseFloat(txtMontoEntregado.getText()) > deuda) {
                 throw new Exception("El monto entregado no puede ser mayor al monto de la deuda");
             }

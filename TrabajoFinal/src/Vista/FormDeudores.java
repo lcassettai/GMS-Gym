@@ -8,6 +8,8 @@ package Vista;
 import Controlador.ControladorPagos;
 import Modelo.DeudorActivo;
 import Modelo.DeudoresTableModel;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +37,15 @@ public class FormDeudores extends javax.swing.JFrame {
         setResizable(false);
     }
 
+      @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+
+        return retValue;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,6 +71,7 @@ public class FormDeudores extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Deudores");
+        setIconImage(getIconImage());
 
         jLabel1.setText("Apellido :");
 

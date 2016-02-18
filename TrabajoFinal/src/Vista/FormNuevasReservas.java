@@ -13,6 +13,8 @@ import Modelo.Dias;
 import Modelo.Empleado;
 import Modelo.Inscripcion;
 import Modelo.Reservas;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +42,14 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         listaReservas = new ArrayList<>();
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
 
     public void setAlumno(Alumno a) {
@@ -75,6 +85,7 @@ public class FormNuevasReservas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Reservas");
+        setIconImage(getIconImage());
 
         jLabel1.setText("Matricula : ");
 
@@ -300,9 +311,9 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         int idActividad = obtenerActividadSeleccionada();
         int idEmpleado = obtenerProfesorSeleccionado();
         int idDia = obtenerDiaSeleccionado();
-        
+
         cboHorario.setEnabled(true);
-        
+
         ControladorReservas cr = new ControladorReservas();
 
         cboHorario.removeAllItems();
@@ -310,17 +321,17 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         listaHorario = cr.obtenerHorarioDisponible(idActividad, idEmpleado, idDia);
 
         int codClase = 0;
-        
-        for (int i = 0; i < listaHorario.size(); i++) {      
-          String horario =   listaHorario.get(i).getHoraInicio() + " - " + listaHorario.get(i).getHoraFin();
-          cboHorario.addItem(horario); 
-          codClase = obtenerClaseSeleccionada(horario);
-          if(!cr.verificarCupoReservas(codClase)){
-              cboHorario.removeItemAt(i);
-          }                
+
+        for (int i = 0; i < listaHorario.size(); i++) {
+            String horario = listaHorario.get(i).getHoraInicio() + " - " + listaHorario.get(i).getHoraFin();
+            cboHorario.addItem(horario);
+            codClase = obtenerClaseSeleccionada(horario);
+            if (!cr.verificarCupoReservas(codClase)) {
+                cboHorario.removeItemAt(i);
+            }
         }
 
-        if(cboHorario.getSelectedIndex() < 0){
+        if (cboHorario.getSelectedIndex() < 0) {
             cboHorario.addItem("No hay cupo");
             cboHorario.setEnabled(false);
         }
@@ -421,7 +432,7 @@ public class FormNuevasReservas extends javax.swing.JFrame {
 
             if (cboHorario.getSelectedItem().equals("No hay cupo")) {
                 throw new Exception("No hay cupo para esa fecha");
-            }            
+            }
             if (cboProfesor.getSelectedItem().equals("No hay profesores")) {
                 throw new Exception("No hay profesores disponibles");
             }
@@ -464,8 +475,6 @@ public class FormNuevasReservas extends javax.swing.JFrame {
         }
         return -1;
     }
-    
-    
 
     private int obtenerClaseSeleccionada() {
         ControladorReservas cr = new ControladorReservas();
@@ -478,12 +487,12 @@ public class FormNuevasReservas extends javax.swing.JFrame {
 
         return idClase;
     }
-    
-        private int obtenerClaseSeleccionada(String horario) {
+
+    private int obtenerClaseSeleccionada(String horario) {
         ControladorReservas cr = new ControladorReservas();
         int idActividad = obtenerActividadSeleccionada();
         int idEmpleado = obtenerProfesorSeleccionado();
-        int idDia = obtenerDiaSeleccionado();       
+        int idDia = obtenerDiaSeleccionado();
 
         int idClase = cr.obtenerClaseSeleccionada(idActividad, idEmpleado, idDia, horario);
 

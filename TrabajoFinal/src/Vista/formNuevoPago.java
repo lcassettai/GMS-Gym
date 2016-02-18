@@ -16,6 +16,8 @@ import Modelo.Inscripcion;
 import Modelo.Promocion;
 import Modelo.detallePagoCuota;
 import Modelo.pagoCuota;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class formNuevoPago extends javax.swing.JFrame {
      * Creates new form formNuevoPago
      */
     private ArrayList<Actividad> listaActividades;
-    private ArrayList<Promocion> listaPromociones;    
+    private ArrayList<Promocion> listaPromociones;
     private ArrayList listaPago;
     private DefaultTableModel modelo;
     private float totalAPagar;
@@ -73,6 +75,14 @@ public class formNuevoPago extends javax.swing.JFrame {
         lblCodigoAlumno.setText(String.valueOf(alumno.getCodCliente()));
         lblNombre.setText(alumno.getNombre());
 
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
 
     public void setCodigoEmpleado(int codigo) {
@@ -118,6 +128,7 @@ public class formNuevoPago extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo pago de cuota");
+        setIconImage(getIconImage());
 
         jLabel1.setText("Codigo del Alumno :");
 
@@ -498,7 +509,7 @@ public class formNuevoPago extends javax.swing.JFrame {
 
     private boolean verificarActividadEnTabla(int tipoActividad) {
         for (int i = 0; i < listaInscripcion.size(); i++) {
-            if(listaInscripcion.get(i).getIdTipoActividad() == tipoActividad){
+            if (listaInscripcion.get(i).getIdTipoActividad() == tipoActividad) {
                 return false;
             }
         }
@@ -617,19 +628,19 @@ public class formNuevoPago extends javax.swing.JFrame {
 
     private void cboTipoActividadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTipoActividadActionPerformed
         cboActividades.removeAllItems();
-        cargarActividades(cboTipoActividad.getSelectedIndex() + 1);     
+        cargarActividades(cboTipoActividad.getSelectedIndex() + 1);
         if (cboActividades.getSelectedIndex() < 0) {
             btnAgregar.setEnabled(false);
-            
+
             cboActividades.addItem("No hay actividades");
         } else {
             btnAgregar.setEnabled(true);
-            
+
         }
     }//GEN-LAST:event_cboTipoActividadActionPerformed
 
     private void cboActividadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboActividadesActionPerformed
-       
+
     }//GEN-LAST:event_cboActividadesActionPerformed
 
     private boolean validarCampos() {

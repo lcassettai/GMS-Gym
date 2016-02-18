@@ -7,6 +7,8 @@ package Vista;
 
 import Controlador.ControladorAlumno;
 import Modelo.*;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,6 +35,15 @@ public class formNuevoAlumno extends javax.swing.JFrame {
         foco();
         txtBuscarAlumno.requestFocus();
         actualizarLista();
+
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
     }
 
     @SuppressWarnings("unchecked")
@@ -80,6 +91,7 @@ public class formNuevoAlumno extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestionar Alumnos");
+        setIconImage(getIconImage());
         setMaximumSize(new java.awt.Dimension(724, 442));
         setMinimumSize(new java.awt.Dimension(724, 442));
         setSize(new java.awt.Dimension(724, 442));

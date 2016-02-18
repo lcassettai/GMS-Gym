@@ -20,6 +20,8 @@ import java.io.IOException;
 import com.lowagie.text.pdf.PdfReader;
 import com.lowagie.text.pdf.PdfStamper;
 import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JOptionPane;
 
@@ -39,6 +41,14 @@ public class FormInformePagos extends javax.swing.JFrame {
         listaCuotaPaga = null;
     }
 
+         @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+        return retValue;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,6 +99,7 @@ public class FormInformePagos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Informe de pago de cuotas");
+        setIconImage(getIconImage());
 
         tblCuotas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

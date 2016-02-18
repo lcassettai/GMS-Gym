@@ -11,6 +11,8 @@ import Modelo.Clase;
 import Modelo.HistorialClasesTableModel;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -32,6 +34,16 @@ public class FormClasesActivas extends javax.swing.JFrame {
         cargarActividades();
     }
 
+    
+      @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+
+        return retValue;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -46,6 +58,7 @@ public class FormClasesActivas extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Clases disponibles");
+        setIconImage(getIconImage());
 
         jLabel1.setText("Actividad :");
 

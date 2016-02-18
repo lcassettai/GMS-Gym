@@ -8,6 +8,8 @@ import Modelo.Inscripcion;
 import Modelo.InscripcionesTableModel;
 import Modelo.Usuario;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -20,9 +22,18 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         initComponents();
         login = new Usuario();
         this.setLocationRelativeTo(null);
-
+        this.getContentPane().setBackground(java.awt.SystemColor.activeCaption);
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+
+        return retValue;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -100,12 +111,15 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gym Management System GMS Cassettai Luciano");
+        setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(950, 544));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
             }
         });
+
+        jPanel1.setBackground(java.awt.SystemColor.activeCaption);
 
         btnNuevoAlumno.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/nuevoChico.png"))); // NOI18N
         btnNuevoAlumno.setText("Nuevo Alumno");
@@ -213,6 +227,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel2.setBackground(java.awt.SystemColor.activeCaption);
+
         lstBusquedaRapida.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lstBusquedaRapida.setEnabled(false);
         lstBusquedaRapida.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -240,6 +256,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane2))
         );
+
+        jPanel3.setBackground(java.awt.SystemColor.activeCaption);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Matricula Alumno :");
@@ -315,6 +333,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Sesion Actual :");
 
+        jPanel4.setBackground(java.awt.SystemColor.activeCaption);
+
         tblInscripcion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -339,6 +359,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
+
+        jPanel5.setBackground(java.awt.SystemColor.activeCaption);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Buscar :");

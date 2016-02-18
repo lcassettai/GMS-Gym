@@ -13,6 +13,7 @@ import Modelo.Alumno;
 import Modelo.Empleado;
 import Modelo.Inscripcion;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
@@ -58,6 +59,15 @@ public class FormControlAsistencia extends javax.swing.JFrame {
 
     }
 
+      @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().
+                getImage(ClassLoader.getSystemResource("Iconos/Pesas3.png"));
+
+
+        return retValue;
+    }
+    
     public void setMenuPrincipal(FormMenuPrincipal fmp){
         this.formMenuPpal = fmp;
     }
@@ -87,6 +97,7 @@ public class FormControlAsistencia extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Control de Asistencias");
         setBackground(java.awt.SystemColor.activeCaption);
+        setIconImage(getIconImage());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
