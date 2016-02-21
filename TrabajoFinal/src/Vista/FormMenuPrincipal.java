@@ -821,7 +821,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miAbmAlumnoActionPerformed
 
     private void btnSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalir1ActionPerformed
-
+        salir();
     }//GEN-LAST:event_btnSalir1ActionPerformed
 
     private void clasesActivasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clasesActivasActionPerformed
